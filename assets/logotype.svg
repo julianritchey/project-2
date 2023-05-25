@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="952.5mm"
+   height="952.5mm"
+   viewBox="0 0 952.5 952.5"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="logotype.svg"
+   inkscape:export-filename="logotype-150.png"
+   inkscape:export-xdpi="4"
+   inkscape:export-ydpi="4"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.2102413"
+     inkscape:cx="285.38636"
+     inkscape:cy="1883.55"
+     inkscape:window-width="2560"
+     inkscape:window-height="1494"
+     inkscape:window-x="2869"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect1570"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,95.25,0,1 @ F,0,0,1,0,95.25,0,1 @ F,0,0,1,0,95.25,0,1 @ F,0,0,1,0,95.25,0,1"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="360"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-33.978813,-52.85593)">
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:381px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:vertical-lr;direction:rtl;fill:#00bc8c;fill-opacity:1;stroke-width:0.264583"
+       x="-541.5083"
+       y="879.22955"
+       id="text2404"
+       transform="rotate(-90)"
+       inkscape:export-filename="logotype-150.png"
+       inkscape:export-xdpi="13.45598"
+       inkscape:export-ydpi="13.45598"><tspan
+         sodipodi:role="line"
+         id="tspan867"
+         x="-541.5083"
+         y="879.22955">InD</tspan></text>
+  </g>
+</svg>

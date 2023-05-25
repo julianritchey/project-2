@@ -30,7 +30,7 @@ Dash web-application for managing personal investments, as well as planning and 
 <p align="justify">To analyze the results of a Monte Carlo simulation, financial analysts often use metrics such as Sharpe ratios, standard deviations, and correlations. The Sharpe ratio, for example, measures the excess return of a portfolio relative to the risk-free rate, divided by its standard deviation. The standard deviation measures the degree of variability of the portfolio's returns, while correlations measure the degree to which the returns of different assets move together. In finance, Monte Carlo simulations are often used to analyze the risk and return of a portfolio of assets. The technique involves creating a model of the portfolio that takes into account the historical performance of the assets, as well as their expected future returns, volatility, and correlations with one another.</p>
 
 #### Further information
-For further information, please refer to our [PowerPoint presentation](miscellaneous/Investor's%20Dream%20Project%201.pptx).
+For further information, please refer to our [PowerPoint presentation](miscellaneous/Investor's Dream Project 1.pptx).
 
 ### Running the application
 Open your browser and go to the following url:  

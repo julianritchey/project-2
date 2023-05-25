@@ -34,7 +34,8 @@ def navbar(user_login):
                         ],
                         label=html.Img(
                             src=session.get('user')['userinfo']['picture'],
-                            height=26
+                            height=30,
+                            style={'padding':0},
                         ),
                         caret=False,
                         color='dark',
@@ -45,7 +46,8 @@ def navbar(user_login):
                 ],
                 brand="Investor's Dream",
                 #brand_href='/',
-                brand_style={'color':'#00bc8c', 'font-weight':'bold'},
+                brand_style={'font-weight':'bold'},
+                class_name='rounded-bottom',
                 color='dark',
                 dark=True,
                 fluid=True,

@@ -118,11 +118,11 @@ def layout():
             html.H2(["Account management"], className='mx-3 my-3'),
             dbc.Tabs(
                 [
-                    dbc.Tab(tab1_content, label="Questrade"),
+                    dbc.Tab(tab1_content, label="Questrade", style={'background-color':'#444'}),
                     dbc.Tab(tab2_content, label="Kucoin"),
                     dbc.Tab(tab3_content, label="Exchanges information"),
                 ],
-                active_tab="tab-0"
+                active_tab="tab-0",
             )
         ]
     )
