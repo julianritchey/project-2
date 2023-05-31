@@ -1,0 +1,69 @@
+﻿"Assets and debts held by economic family type, by age group, Canada, provinces and selected census metropolitan areas, Survey of Financial Security (x 1,000,000) 1 2 3 4"
+"Frequency: Occasional"
+"Table: 11-10-0016-01 (formerly CANSIM 205-0002)"
+"Release date: 2020-12-22"
+"Geography: Canada, Geographical region of Canada, Province or territory, Census metropolitan area"
+""
+""
+
+"Geography","Canada",,,,,
+"Age group","All ages",,,,,
+"Statistics 5","Total values",,,,,
+"Economic family type","Economic families and persons not in an economic family",,,,,
+"Assets and debts","2005","Symbol","2012","Symbol","2016","Symbol"
+,"2019 constant dollars",,,,,
+"Total assets","7,146,577","","10,516,428","","12,739,498",""
+"Private pension assets 6","2,074,183","","3,162,201","","3,723,304",""
+"Registered Retirement Savings Plans (RRSPs), Registered Retirement Income Funds (RRIFs), Locked-in Retirement Accounts (LIRAs) and other 7","753,985","","1,071,205","","1,268,317",""
+"Employer-sponsored Registered Pension Plans (EPPs)","1,320,198","","2,090,996","","2,454,987",""
+"Financial assets, non pension","743,028","","1,170,263","","1,455,576",""
+"Deposits in financial institutions 8","301,647","","384,402","","425,222",""
+"Mutual funds, investment funds and income trusts","170,004","","267,606","","315,025",""
+"Stocks","130,996","","228,936","","264,781",""
+"Bonds (saving and other)","44,002","E","27,243","E","22,806","E"
+"Tax Free Saving Accounts (TFSA)","","..","73,687","","173,690",""
+"Other financial assets 9","96,380","","188,389","","254,051",""
+"Non-financial assets","3,579,680","","5,302,078","","6,556,253",""
+"Real estate","3,000,242","","4,677,905","","5,864,964",""
+"Principal residence","2,389,096","","3,636,659","","4,591,533",""
+"Other real estate","611,146","","1,041,246","","1,273,431",""
+"Vehicles and other non-financial assets","579,437","","624,173","","691,289",""
+"Vehicles","217,607","","274,369","","315,591",""
+"Other non-financial assets 10","361,831","","349,803","","375,698",""
+"Equity in business","749,686","","881,885","","1,004,365",""
+"Total debt","966,220","","1,494,180","","1,858,926",""
+"Mortgage debt","727,215","","1,150,815","","1,500,411",""
+"Mortgage on principal residence","617,810","","917,480","","1,182,923",""
+"Mortgage on other real estate","109,405","","233,335","","317,488",""
+"Non-mortgage debt","239,005","","343,364","","358,515",""
+"Line of credit","86,597","","161,978","","150,610",""
+"Credit card and installment debt 11","32,761","","39,471","","41,356",""
+"Student loans","25,388","","31,594","","39,082",""
+"Vehicle loans","58,600","","84,722","","102,720",""
+"Other debt","35,659","","25,600","","24,747",""
+"Net worth (total assets less total debt)","6,180,356","","9,022,248","","10,880,572",""
+
+Symbol legend:
+.., not available for a specific reference period
+E, use with caution
+
+
+
+
+Footnotes:
+1,"Economic family types are comprised of economic families (a group of two or more persons who live in the same dwelling and are related to each other by blood, marriage, common law or adoption) and persons not in an economic family (a person living either alone or with others to whom he or she is unrelated)."
+2,"Age group refers to age group of the major income earner in the family unit."
+3,"The Employer Pension Plan are valued on termination basis."
+4,"CANSIM table 205-0002 replaces CANSIM table 205-0001, which is now deleted."
+5,"For all types of assets and debts, the total, average and median values, as well as the number and percentage of economic entities holding, are calculated using values not equal to $0. For net worth, the total, average and median values, as well as the number and percentage of economic entities holding, are calculated using all values including net worth equal to $0."
+6,"Excludes public plans administered or sponsored by governments: Old Age Security (OAS) including the Guaranteed Income Supplement (GIS) and the Spouse's Allowance (SPA), as well as the Canada/Quebec Pension Plans (C/QPP)."
+7,"Other includes Deferred Profit Sharing Plans (DPSPs), annuities and other miscellaneous pension assets."
+8,"In 2012, 2016 and 2019, this category includes Treasury Bills."
+9,"Includes Registered Education Savings Plans (RESPs), treasury bills (1999 and 2005 only) mortgage-backed securities, money held in trust, money owed to the respondent and other miscellaneous financial assets, including shares of privately held companies."
+10,"The value of the contents of the respondent's principal residence, valuables and collectibles, copyrights and patents, et cetera."
+11,"Includes major credit cards and retail store cards, gasoline station cards, et cetera. Installment debt is the total amount owing on deferred payment or installment plans where the purchased item is to be paid for over a period of time."
+
+
+
+"How to cite: Statistics Canada. Table 11-10-0016-01  Assets and debts held by economic family type, by age group, Canada, provinces and selected census metropolitan areas, Survey of Financial Security (x 1,000,000)"
+https://www150.statcan.gc.ca/t1/tbl1/en/tv.action?pid=1110001601
