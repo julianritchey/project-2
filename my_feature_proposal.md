@@ -44,3 +44,5 @@
 
 * For the interactive financial educational resources/tools it can be its own little thing that we can show in the presentation (in case we run into problems connecting to the application). The interactive financial tool can stand alone as its own little app that I can deploy to our project, it's a python framework library ( It doesn't require html like dash or flask :P). I can feed it the data I will be using to train the investor's risk assessment model.
 * But more resources can be incorporated as well, it allows it for different types as I have seen in some demos.
+
+"
