@@ -22,7 +22,7 @@ Note, the analyses will need to be done preemptively in real time, which will in
 
 **if checkbox is true, then:**
 
-'''python
+```python
 @app.route('/send-email')
 def send_email():
     recipient = 'recipient@example.com'
@@ -35,4 +35,4 @@ def send_email():
     
     mail.send(msg)
     return 'Email sent successfully!'
-'''
+```
