@@ -19,8 +19,11 @@ The application could be incorporated directly into the Investor's Dream app, pr
 1. Data Preparation: get the portfolio's stocks or cryptocurrency chosen by users from the Investor's Dream app.
 
 2. Develop Algo trading function: MACD crossover trading strategy 
+![MACD.jpeg](MACD.jpeg) 
 
 3. Develop trading logic function: base on grid trading method
+
+![grid_trade.jpeg](grid_trade.jpeg)  
 
 4. APIs function: get historical data from the Alpaca stock dataset and Binance cryptocurrency dataset.
 
