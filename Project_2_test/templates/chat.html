@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Chat</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div id="chat-container">
+        <div id="chat-log"></div>
+        <form id="chat-form" onsubmit="submitForm(event)">
+            <input type="text" id="user-input" autocomplete="off" placeholder="Type your message..." />
+            <button type="submit">Send</button>
+        </form>
+    </div>
+
+    <script>
+        function submitForm(event) {
+            event.preventDefault();
+
+            var userInput = $('#user-input').val();
+            $('#chat-log').append('<div class="user-message">' + userInput + '</div>');
+
+            $.ajax({
+                url: '/chat',
+                type: 'POST',
+                data: { user_input: userInput },
+                success: function(response) {
+                    $('#chat-log').append('<div class="bot-message">' + response + '</div>');
+                }
+            });
+
+            $('#user-input').val('');
+        }
+    </script>
+</body>
+</html>
+
