@@ -1,0 +1,872 @@
+The description is as follows:
+
+AGE: There are 6 age categories, where 1 represents age less than 35 and 6 represents age more than 75.
+EDUC: There are 4 education categories, where 1 represents no high school and 4 represents college degree.
+MARRIED: It represents marital status. There are two categories where 1 represents married and 2 represents unmarried.
+OCCU: It represents occupation category. 1 represents managerial category and 4 represents unemployed.
+KIDS: It represents number of kids.
+NWCAT: It represents net worth category. There are 5 categories, where 1 net worth less than 25 percentile and 5 represents net worth more than 90th percentile.It is a categorical variable that classifies individuals into different categories based on their net worth. In this specific dataset, there are five categories represented by numerical values:
+Category 1: Net worth less than the 25th percentile.
+Category 2: Net worth between the 25th and 50th percentile.
+Category 3: Net worth between the 50th and 75th percentile.
+Category 4: Net worth between the 75th and 90th percentile.
+Category 5: Net worth greater than the 90th percentile.
+These categories provide a way to group individuals based on their net worth and allow for analysis and comparisons within each category.
+INCCL: It represents income category. There are 5 categories, where 1 income less than 10,000 and 5 represents net worth more than 100,000
+RISK: It represents the willingness to take risk on a scale of 1 to 4, where 1 represents highest level of willingness to take risk.
+
+
+## Demographics parameters and meanings of data based on Federal Reserve resource:
+
+https://www.federalreserve.gov/econresdata/scf/files/fedstables.macro.txt
+
+
+*   demographic variables;
+
+*   age of the household head, and categorical variable:
+    1:<35, 2:35-44, 3:45-54, 4:55-64, 5:65-74, 6:>=75;
+    AGE=&V14;
+    AGECL=1+(AGE GE 35)+(AGE GE 45)+(AGE GE 55)+(AGE GE 65)+(AGE GE 75);
+
+
+*   education of the HH head, and categorical variable:
+    1=no high school diploma/GED, 2=high school diploma or GED,
+    3=some college, 4=college degree;
+    EDUC=&V5901;
+    IF &V5904 EQ 1 THEN EDCL=4;
+    ELSE IF EDUC GE 13 THEN EDCL=3;
+    ELSE IF (&V5902 IN (1 2)) THEN EDCL=2;
+    ELSE EDCL=1;
+
+*   marital status of the HH head: 1=married/living with partner,
+    2=neither married nor living with partner;
+    IF (&V8023 IN (1 2)) THEN MARRIED=1;
+    ELSE MARRIED=2;
+
+*   number of children (including natural children/step-children/
+    foster children of head/spouse/partner);
+*   NOTE: from 1995 forward, household listing information collected
+    for one fewer HH member;
+    ARRAY REL{*} &V108 &V114 &V120 &V126 &V132 &V202 &V208 &V214 &V220 &V226;
+    KIDS=0;
+    DO I=1 TO DIM(REL);
+      KIDS=KIDS+(REL{I}=4|REL{I}=13|REL{I}=36);
+    END;
+
+*   labor force participation: 1=working in some way, 0=not working
+    at all;
+    IF ((&V4100 >=50 & &V4100 <= 80)| &V4100=97) THEN LF=0;
+      ELSE LF=1;
+
+*   life cycle variables: 1=head under 55 + not married/LWP + no
+    children, 2=head under 55 + married/LWP + no children, 3=head
+    under 55 + married/LWP + children, 4=head under 55 + not
+    married/LWP + children, 5=head 55 or older and working,
+    6=head 55 or older and not working;
+    IF AGE<55 AND MARRIED NE 1 AND KIDS EQ 0 THEN LIFECL=1;
+    ELSE IF AGE<55 AND MARRIED EQ 1 AND KIDS EQ 0 THEN LIFECL=2;
+    ELSE IF AGE<55 AND MARRIED EQ 1 AND KIDS GT 0 THEN LIFECL=3;
+    ELSE IF AGE<55 AND MARRIED NE 1 AND KIDS GT 0 THEN LIFECL=4;
+    ELSE IF AGE>54 AND LF=1 THEN LIFECL=5;
+    ELSE IF AGE>54 AND LF=0 THEN LIFECL=6;    
+
+*   family structure: 1=not married/LWP + children, 
+    2=not married/LWP + no children + head under 55, 
+    3=not married/LWP + no children + head 55 or older, 
+    4=married/LWP+ children, 5=married/LWP + no children;
+
+    IF MARRIED NE 1 AND KIDS >= 1 THEN FAMSTRUCT=1;
+    ELSE IF MARRIED NE 1 AND KIDS = 0 AND AGE<55 THEN FAMSTRUCT=2;
+    ELSE IF MARRIED NE 1 AND KIDS = 0 AND AGE>54 THEN FAMSTRUCT=3;
+    ELSE IF MARRIED EQ 1 AND KIDS >= 1 THEN FAMSTRUCT=4;
+    ELSE IF MARRIED EQ 1 AND KIDS =0 THEN FAMSTRUCT=5;
+    ELSE PUT "ERROR: UNCLASSIFIED FAMILY STRUCTURE " Y1= MARRIED= KIDS= AGE=;
+
+   #work status categories for head:
+    1=work for someone else, 2=self-employed/partnership,
+    3=retired/disabled + (student/homemaker/misc. not working and
+    age 65 or older), 4=other groups not working (mainly those under
+    65 and out of the labor force);
+    IF &V4106=1 THEN OCCAT1=1;
+    ELSE IF (&V4106 IN (2 3 4)) THEN OCCAT1=2;
+    ELSE IF ((&V4100 IN (50 52))|(&V4100 IN (21 23 30 70 80 97 85 -7) &
+      AGE>=65)) THEN OCCAT1=3;
+    ELSE IF (&V14<65) THEN OCCAT1=4;
+    ELSE PUT "ERROR: UNCLASSIFIED WORK STATUS " Y1= &V14= &V4100= &V4106=;
+    
+*   occupation classification for head:
+    1=managerial/professional 2=technical/sales/services,
+    3=other (incl. production/craft/repair workers, operators, 
+    laborers, farmers, foresters, fishers) 4=not working;
+    %IF (&PUBLIC EQ NO) %THEN %DO;
+      %IF (&YEAR LT 2004) %THEN %DO;
+        IF (3 <= &V7401 <=37) THEN OCCAT2=1;
+        ELSE IF (43 <= &V7401 <=199) THEN OCCAT2=1;
+        ELSE IF (203 <= &V7401 <=235) THEN OCCAT2=2;
+        ELSE IF (243 <= &V7401 <=285) THEN OCCAT2=2;
+        ELSE IF (303 <= &V7401 <=389) THEN OCCAT2=2;
+        ELSE IF (403 <= &V7401 <=407) THEN OCCAT2=2;
+        ELSE IF (413 <= &V7401 <=427) THEN OCCAT2=2;
+        ELSE IF (433 <= &V7401 <=469) THEN OCCAT2=2;
+        ELSE IF (473 <= &V7401 <=499) THEN OCCAT2=3;
+        ELSE IF (503 <= &V7401 <=699) THEN OCCAT2=3;
+        ELSE IF (703 <= &V7401 <=799) THEN OCCAT2=3;
+        ELSE IF (803 <= &V7401 <=859) THEN OCCAT2=3;
+        ELSE IF (863 <= &V7401 <=889) THEN OCCAT2=3;
+        ELSE IF (903 <= &V7401 <=905) THEN OCCAT2=3;
+        ELSE IF (&V7401=0) THEN OCCAT2=4;
+        ELSE PUT "ERROR: UNCLASSIFIED OCCUPATION STATUS " Y1= &V14= &V4100= &V4106= &V7401=;
+      %END;
+      %ELSE %IF (&YEAR GE 2004) %THEN %DO;
+        IF (10 <= &V7401 <=200) THEN OCCAT2=1;
+        ELSE IF (220 <= &V7401 <=1530) THEN OCCAT2=1;
+        ELSE IF (1600 <= &V7401 <=1860) THEN OCCAT2=1;
+        ELSE IF (2000 <= &V7401 <=3650) THEN OCCAT2=1;
+        ELSE IF (1540 <= &V7401 <=1560) THEN OCCAT2=2;
+        ELSE IF (4700 <= &V7401 <=5930) THEN OCCAT2=2;
+        ELSE IF (1900 <= &V7401 <=1960) THEN OCCAT2=2;
+        ELSE IF (7900 <= &V7401 <=7900) THEN OCCAT2=2;
+        ELSE IF (3700 <= &V7401 <=4320) THEN OCCAT2=2;
+        ELSE IF (4400 <= &V7401 <=4400) THEN OCCAT2=2;
+        ELSE IF (4420 <= &V7401 <=4650) THEN OCCAT2=2;
+        ELSE IF (9840 <= &V7401 <=9840) THEN OCCAT2=2;
+        ELSE IF (6200 <= &V7401 <=7850) THEN OCCAT2=3;
+        ELSE IF (8330 <= &V7401 <=8330) THEN OCCAT2=3;
+        ELSE IF (8350 <= &V7401 <=8350) THEN OCCAT2=3;
+        ELSE IF (8440 <= &V7401 <=8630) THEN OCCAT2=3;
+        ELSE IF (8740 <= &V7401 <=8760) THEN OCCAT2=3;
+        ELSE IF (8810 <= &V7401 <=8810) THEN OCCAT2=3;
+        ELSE IF (4410 <= &V7401 <=4410) THEN OCCAT2=3;
+        ELSE IF (7920 <= &V7401 <=8320) THEN OCCAT2=3;
+        ELSE IF (8340 <= &V7401 <=8340) THEN OCCAT2=3;
+        ELSE IF (8360 <= &V7401 <=8430) THEN OCCAT2=3;
+        ELSE IF (8640 <= &V7401 <=8730) THEN OCCAT2=3;
+        ELSE IF (8800 <= &V7401 <=8800) THEN OCCAT2=3;
+        ELSE IF (8830 <= &V7401 <=9750) THEN OCCAT2=3;
+        ELSE IF (210 <= &V7401 <=210) THEN OCCAT2=3;
+        ELSE IF (4340 <= &V7401 <=4350) THEN OCCAT2=3;
+        ELSE IF (6000 <= &V7401 <=6130) THEN OCCAT2=3;
+        ELSE IF (&V7401=0) THEN OCCAT2=4;
+        ELSE PUT "ERROR: UNCLASSIFIED OCCUPATION STATUS " Y1= &V14= &V4100= &V4106= &V7401=;
+      %END;
+    %END;
+    %IF (&PUBLIC EQ YES) %THEN %DO;
+       IF &V7401=1 THEN OCCAT2=1;
+       ELSE IF &V7401 IN(2 3) THEN OCCAT2=2;
+       ELSE IF &V7401 IN(4 5 6) THEN OCCAT2=3;
+       ELSE IF &V7401=0 THEN OCCAT2=4;
+    %END;
+
+*   income variables;
+    
+*   HH income in previous calendar year;
+*   NOTE: For 2004 forward, IRA and withdrawals from tax-
+    deferred pension accounts added to INCOME below;
+    INCOME=MAX(0,&V5729);
+
+*   HH income components in previous calendar year;
+*   NOTE: Components of income may not sum to INCOME;
+    WAGEINC=&V5702;
+    BUSSEFARMINC=&V5704+&V5714;
+    INTDIVINC=&V5706+&V5708+&V5710;
+    KGINC=&V5712;
+    SSRETINC=&V5722;
+    TRANSFOTHINC=&V5716+&V5718+&V5720+&V5724;
+
+*   for 2004 and beyond, add in the amount of withdrawals from IRAs
+    and tax-deferred pension accounts (already included in earlier
+    years). need to convert pension withdrawals to annual frequency,
+    using macro that converts amounts to monthly, then multiply by 12;;
+    %IF (&YEAR GE 2004) %THEN %DO;
+      IF &V091126=5 THEN &V091131=0;
+      PENACCTWD=&V091007+&V091131;
+      INCOME=INCOME+PENACCTWD;
+      SSRETINC=SSRETINC+PENACCTWD;
+    %END;
+
+*   normal income;
+    NORMINC=.B;
+    %IF (&YEAR GE 1995) %THEN %DO;
+      IF (&V7650^=3) THEN NORMINC=&V7362;
+      ELSE NORMINC=&V5729;
+    %END;
+    
+*   if ADJINC=YES, adjust actual/normal income to level of survey year;
+    %IF (&ADJINC EQ YES) %THEN %DO;
+      ARRAY PYRINC {*} INCOME WAGEINC BUSSEFARMINC INTDIVINC KGINC 
+        SSRETINC TRANSFOTHINC;
+      DO I=1 TO DIM(PYRINC);
+        PYRINC{I}=PYRINC{I}*&CPILAG;
+      END; 
+      %IF (&YEAR GE 1995) %THEN %DO;
+        NORMINC=NORMINC*&CPILAG;
+      %END;
+    %END;
+
+*   attitudinal and related variables;
+
+*   risk preference;
+    RISK=&V3014;
+    PSAVING=&V7187;
+    
+*   adjusting for durables purchases/investments, spent
+    more/same/less than income in past year;
+*   WSAVED: 1=spending exceeded income, 2=spending equaled income,
+    3=spending less than income;
+*   SAVED: 1=spent less than income, 0=all others;
+    %IF (&YEAR GE 1992) %THEN %DO;
+      IF (&V7508>0) THEN WSAVED=&V7508;
+      ELSE IF (&V7510=2 & &V7509=1) THEN WSAVED=3;
+      ELSE WSAVED=&V7510;
+      SAVED=(WSAVED=3);
+    %END;
+    
+*   reasons for saving: 1=cant save, 2=education, 3=family, 4=home,
+    5=purchases, 6=retirement, 7=liquidity/the future, 8=investment,
+    9=no particular reason;
+*   NOTE: multiple saving reasons may be reported: here choosing only
+    first (most important) reason;
+    ARRAY SAVRES {*} SAVRES1-SAVRES9;
+    ARRAY RES {*} &V3006 /*&V3007*/ ;
+    DO I=1 TO DIM(SAVRES);
+      SAVRES{I}=0;
+    END;
+    DO I=1 TO DIM(RES);
+      IF (RES{I} IN (-2 -1)) THEN SAVRES{1}=1;
+      ELSE IF (RES{I} IN (1 2)) THEN SAVRES{2}=1;
+      ELSE IF (RES{I} IN (3 5 6)) THEN SAVRES{3}=1;
+      ELSE IF (RES{I} EQ 11) THEN SAVRES{4}=1;
+      ELSE IF (RES{I} IN (12 13 14 15 16 27 29 30 9 18 20 41)) THEN
+        SAVRES{5}=1;
+      ELSE IF (RES{I} IN (17 22)) THEN SAVRES{6}=1;
+      ELSE IF (RES{I} IN (23 24 25 32 92 93)) THEN SAVRES{7}=1;
+      ELSE IF (RES{I} IN (21 26 28)) THEN SAVRES{8}=1;
+      ELSE IF (RES{I} IN (31 33 40 90 91 -7)) THEN SAVRES{9}=1;
+      ELSE PUT "UNCLASSIFIED SAVING REASON! " &ID= RES{I}=;
+    END;
+/*
+    1.  Children's education; education of grandchildren
+    2.  Own education; spouse's education; education -- NA for whom
+    3.  "For the children/family"  -- NFS; "to help the kids
+        out"; estate
+    5.  Wedding, Bar Mitzvah, and other ceremonies (except 17)
+    6.  To have children/a family
+    9.  To move (except 11)
+   11.  Buying own house (code summer cottage in 12)
+   12.  Purchase of cottage or second home for own use
+   13.  Buy a car, boat or other vehicle
+   14.  Home improvements/repairs
+   15.  To travel; take vacations; take other time off
+   16.  Buy durable household goods, appliances, home
+        furnishings; hobby and recreational items; for other 
+        purchases not codable above or not further specified; 
+        "buy things when we need/want them"; moving/special occasions 
+   17.  Burial/funeral expenses
+   18.  Charitable or religious contributions
+   20.  "To enjoy life"
+   21.  Buying (investing in) own business/farm; equipment for
+        business/farm
+   22.  Retirement/old age
+   23.  Reserves in case of unemployment
+   24.  In case of illness; medical/dental expenses
+   25.  Emergencies; "rainy days"; other unexpected needs; for
+       "security" and independence
+   26.  Investments reasons (to get interest, to be
+        diversified, to buy other forms of assets)
+   27.  To meet contractual commitments (debt repayment,
+        insurance, taxes, etc.), to pay off house
+   28.  "To get ahead;" to advance standard of living
+   29.  Ordinary living expenses/bills
+   31.  No reason (except 90, 91, 92)
+   32.  "For the future"
+   90.  Had extra income; saved becaused had the money left
+        over -- no other purpose specified
+   91.  Wise/prudent thing to do; good discipline to save; habit
+   92.  Liquidity; to have cash available/on hand
+   -1.  Don't/can't save; "have no money"
+*/
+
+
+*   R would spend more if assets appreciated in value:
+    1=agree strongly, 2=agree somewhat, 3=neither agree nor
+    disagree, 4=disagree somewhat, 5=disagree strongly;
+    %IF (&YEAR GE 1998) %THEN %DO;
+      SPENDMOR=&V6789;
+    %END;
+    
+*   household had any payments more than 60 days past due in last year;
+    LATE60=(&V3005=1);       
+    
+*   R or spouse had unemployment spell in past 12 months;
+    USPELL=(&V6780=1|&V6784=1);  
+    
+*   calculate retirment age variables;
+*   BACKFILL IMPUTED RETIRMENT AGE FROM IMPUTED YEARS;   
+    IF &V7248 IN (. .N .D .R) & &V4544>0 THEN &V7248=&V14+&V4544;
+      ELSE IF &V7248 IN (. .N .D .R)  & &V4544=-2 THEN &V7248=-2;
+      
+    IF &V7700 IN (. .N .D .R)  & &V4526>0 THEN &V7700=&V14+&V4526;
+       ELSE IF &V7700 IN (. .N .D .R)  & &V4526=-2 THEN &V7700=-2;
+    
+    IF &V7728 IN (. .N .D .R)  & &V4524>0 THEN &V7728=&V4524+&V14;
+       ELSE IF &V7728 IN (. .N .D .R)  & &V4524=-2 THEN &V7728=-2;
+    
+    *AGE STOP FULL TIME;
+    IF &V4511=1 THEN AGEFT=&V7728;
+       ELSE IF &V4511=2 THEN AGEFT=&V7701;
+       ELSE AGEFT=&V7703;
+       
+    
+    *AGE STOP ALTOGETHER;
+    IF &V4511=1 THEN DO;
+       IF &V7728=-2 THEN AGEALL=-2;
+       IF &V4525=1 THEN AGEALL=&V7700;
+       IF &V4525=5 THEN AGEALL=&V7728;
+    END;
+    IF &V4511=2 THEN DO;
+       IF &V4543=1 & &V7701=-2 THEN AGEALL=-2;
+       ELSE AGEALL=&V7702;
+    END;
+    IF &V4511=0 THEN AGEALL=&V7704;
+    
+    POSTRWORK=(&V4525=1)    ;   
+    RFULL=(P4511=1);
+
+***************************************************************************;
+*   assets, debts, networth, and related varaibles;
+
+***************************************************************************;
+*   financial assets and related variables;
+    
+*   checking accounts other than money market;
+    CHECKING=MAX(0,&V091001);
+*   have any checking account: 1=yes, 0=no;
+    HCHECK=(&V3501=1);
+*   have no checking account: 1=no checking, 0=have checking;
+*   NOTE: NOCHK=0 may include instances where R has a money market
+    account that is used for checking;
+    NOCHK=(&V3501=5);
+*   people w/o checking accounts: ever had an account?: 1=yes, 5=no;
+*   EHCHKG=X3502;
+*   people w/o checking accounts: why have no account?:
+    1=don*t write enough checks to make it worthwhile,
+    2=minimum balance is too high, 3=do not like dealing with banks,
+    4=service charges are too high, 5=no bank has convenient hours
+    or location, 12=checkbook has been/could be lost/stolen,
+    13=haven*t gotten around to it, 14=R has alternative source of
+    checking services (MMA, MIA, etc) (does not include individuals
+    who write checks for R), 15=R not allowed to have account (e.g.,
+    asset test for welfare), 20=R does not need/want a checking
+    account (NEC), 21=credit problems, bankruptcy, R does not meet
+    depository*s qualifications for having an account, 95=don*t have
+    (enough) money, -1=can*t manage/balance a checking account,
+    -7=other, 0=inapplicable. (R has a checking account: X3501=1);
+
+*   savings accounts or money market account;
+    MSAVING=MAX(0,&V091008);
+*   have savings account: 1=yes, 0=no;
+    HSAVING=((&V091009=1)|(&V091010=1)|(&V091011=1)|(&V091013=1)|(&V091015=1));
+*   have any type of money market account: 1=yes, 0=no;
+    HMMA=((&V091012=1)|(&V091014=1));
+    
+*   call accounts at brokerages;
+    CALL=MAX(0,&V3930);
+*   have call account: 1=yes, 0=no;
+    HCALL=(CALL>0);
+    
+*   all types of transactions accounts (liquid assets);
+    LIQ=CHECKING+MSAVING+CALL;
+*   have any types of transactions accounts: 1=yes, 0=no;
+*   here include even accounts with zero reported balances;
+    HLIQ=(LIQ>0 | &V3501=1 | &V3727=1 | &V3929=1);
+
+*   include accounts with zero balances (for tabling program);  
+    LIQ=MAX(HLIQ,LIQ);
+
+*   certificates of deposit;
+    CDS=MAX(0,&V3721);
+*   have CDs: 1=yes, 0=no;
+    HCDS=(CDS>0);
+    
+*   mutual funds;
+*   total directly-held mutual funds, excluding MMMFs;
+    NMMF=&V091018;
+
+*   have any mutual funds excluding MMMFs: 1=yes, 0=no;
+    HNMMF=(NMMF>0);
+    
+*   stocks;
+    STOCKS=MAX(0,&V3915);
+*   have stocks: 1=yes, 0=no;
+    HSTOCKS=(STOCKS>0);
+*   number different companies in which hold stock;
+    NSTOCKS=&V3914;
+*   Wilshire index of stock prices;
+      WILSH=&V33001;
+
+*   total bonds, not including bond funds or savings bonds;
+    BOND=MAX(0,&V091021);
+*   have bonds: 1=yes, 0=no;
+    HBOND=(BOND>0);
+    
+*   quasi-liquid retirement accounts (IRAs and thrift-type accounts);
+*   individual retirement accounts/Keoghs;
+      IRAKH=MAX(0,&V091003);
+
+
+*     account-type pension plans (included if type is 401k, 403b,
+      thrift, savings, SRA, or if participant has option to borrow or
+      withdraw);               
+      THRIFT=MAX(0,SUM(0,&V091108,&V091708));
+*     PENEQ counts thrift amounts invested in stock;
+      PENEQ=MAX(0,&V091108)*(&V091115=1)+MAX(0,&V091108)*(&V091115=3|&V091115=30)
+           *(MAX(0,&V091116)/10000)
+           +MAX(0,&V091708)*(&V091715=1)+MAX(0,&V091708)*(&V091715=3|&V091715=30)
+           *(MAX(0,&V091716)/10000);
+           
+*   current or future pensions (accumulated in an account for the R/S); 
+    ALLPENS=MAX(0,&V091127);
+
+*     total quasi-liquid: sum of IRAs, thrift accounts, and future pensions; 
+*     this version includes currently received benefits;
+      RETQLIQ=IRAKH+THRIFT+ALLPENS;
+*     have quasi-liquid assets: 1=yes, 0=no;
+      HRETQLIQ=(RETQLIQ>0);
+
+*   other pension characteristics:
+    ANYPEN: 1=either head or spouse/partner has any type of
+    pension, 0=otherwise,
+    DBPLANCJ: 1=either head or spouse/partner has a defined benefit
+    pension on a current job, 0=otherwise,
+    DBPLANT: 1=either head or spouse/partner has DB plan on current
+    job or some type of pension from a past job to be received in
+    the future, 0=otherwise,
+    DCPLANCJ: 1=either head or spouse/partner has any type of
+    account-based plan on a current job, 0=otherwise
+    BPLANCJ: 1=either head or spouse/partner has both types of pension
+    plan on a current job;
+    ANYPEN=(&V4135=1|&V4735=1|&V091124=1); 
+    DBPLANCJ=(&V091117=1|&V091717=1) ;
+    DBPLANT=(DBPLANCJ=1|&V091132=1) ;
+    DCPLANCJ=(&V091107=1|&V091707=1);
+    BPLANCJ =(DBPLANCJ=1 & DCPLANCJ=1); 
+
+*   savings bonds;
+    SAVBND=&V3902;
+*   have savings bonds: 1=yes, 0=no;
+    HSAVBND=(SAVBND>0);
+    
+*   cash value of whole life insurance;
+    CASHLI=MAX(0,&V4006);
+*   have cash value LI: 1=yes, 0=no;
+    HCASHLI=(CASHLI>0);
+    
+*   other managed assets (trusts, annuities and managed investment
+    accounts in which HH has equity interest);
+      ANNUIT=SUM(0,&V6577);
+      TRUSTS=MAX(0,&V6587);
+      
+      OTHMA=ANNUIT+TRUSTS;
+
+*   have other managed assets: 1=yes, 0=no;
+    HOTHMA=(OTHMA>0);
+    
+*   other financial assets: includes loans from the household to
+    someone else, future proceeds, royalties, futures, non-public
+    stock, deferred compensation, oil/gas/mineral invest., cash
+    n.e.c.;
+*   NOTE: because of the collapsing of categories in the public
+    version of the dataset, both codes 71 (oil/gas/mineral leases or
+    investments) and 72 (futures contracts, stock options) are
+    combined in code 71: thus, the sum will be treated as a
+    nonfinancial asset.
+    Additionally, codes 77 (future lottery/prize receipts) and 79
+    (other obligations to R, tax credits) are combined in code 77;
+    %IF (&PUBLIC EQ NO) %THEN %DO;
+      OTHFIN=&V4018+&V4022*(&V4020 IN (61,62,63,64,65,66,67,72,73,74,77,79
+        80,81,82,83))+
+        &V4026*(&V4024 IN (61,62,63,64,65,66,67,72,73,74,77,79,80,81,82,83))+
+        &V4030*(&V4028 IN (61,62,63,64,65,66,67,72,73,74,77,79,80,81,82,83));
+    %END;
+    %ELSE %DO;
+      OTHFIN=&V4018+&V4022*(&V4020 IN (61,62,63,64,65,66,71,72,73,74,77,
+        80,81,-7))+
+        &V4026*(&V4024 IN (61,62,63,64,65,66,71,72,73,74,77,80,81,-7))+
+        &V4030*(&V4028 IN (61,62,63,64,65,66,71,72,73,74,77 80,81,-7));
+    %END;
+
+*   have other financial assets: 1=yes, 0=no;
+    HOTHFIN=(OTHFIN>0);
+    
+*   financial assets invested in stock:
+    1. directly-held stock 
+    2. stock mutual funds: full value if described as stock mutual fund,
+       1/2 value of combination mutual funds
+    3. IRAs/Keoghs invested in stock: 
+       full value if mostly invested in stock, 
+       1/2 value if split between stocks/bonds or stocks/money market,
+       1/3 value if split between stocks/bonds/money market
+    4. other managed assets w/equity interest (annuities, trusts, MIAs):
+       full value if mostly invested in stock,
+       1/2 value if split between stocks/MFs & bonds/CDs, or
+    	 "mixed/diversified,"
+       1/3 value if "other"
+    5. thrift-type retirement accounts invested in stock
+       full value if mostly invested in stock
+       1/2 value if split between stocks and interest earning assets
+    6. savings accounts classified as 529 or other accounts that may
+       be invested in stocks;
+
+      EQUITY=STOCKS+.5*NMMF+
+        &V091003*((&V091004=1)+(&V091004=3|&V091004=30)*(MAX(0,&V091005)/10000))+
+        ANNUIT*((&V6581=1)+(&V6581=3|&V6581=30)*(MAX(0,&V6582)/10000))+
+        TRUSTS*((&V6591=1)+(&V6591=3|&V6591=30)*(MAX(0,&V6592)/10000))+PENEQ+
+        MAX(0,&V091127)*((&V091128=1)+(&V091128=3|&V091128=30)*(MAX(0,&V091129)/10000))+
+        &V091008*((&V091016=1)*(MAX(0,&V091017)/10000));
+
+*   have stock equity: 1=yes, 0=no;
+    HEQUITY=(EQUITY>0);
+*   equity in directly held stocks, stock mutual funds, and
+    combination mutual funds;
+    DEQ=STOCKS+.5*NMMF;
+
+*   equity in quasi-liquid retirement assets;
+      RETEQ=&V091003*((&V091004=1)+(&V091004=3|&V091004=30)*(MAX(0,&V091005)/10000))+
+        PENEQ+MAX(0,&V091127)*((&V091128=1)
+        +(&V091128=3|&V091128=30)*(MAX(0,&V091129)/10000));
+*   ratio of equity to normal income;
+    EQUITINC=.;
+      EQUITINC=EQUITY/MAX(100,NORMINC);
+    
+*   brokerage account info;
+*   have a brokerage account;
+    HBROK=(&V3923=1);
+*   traded in the past year;
+    HTRAD=(&V3928>0);
+*   number of trades per year; 
+      IF (&V7193 NOT IN (0 -1 1 2 3 4 5 6 8 11 12 18 25)) THEN PUT
+        "WARNING: UNRECOGNIZED FREQUENCY FOR P7193! " &ID= &V7193=;
+      PTRAD=((&V7193=1)*250+(&V7193=2)*52+(&V7193=3)*26+(&V7193=4)*12
+       +(&V7193=5)*4+(&V7193=6)+(&V7193=8)+(&V7193=11)*2 +
+        (&V7193=12)*6+(&V7193=18)*8*250+(&V7193=25)/2);
+      NTRAD=PTRAD*MAX(0,&V3928); 
+    
+*   total financial assets;
+    FIN=LIQ+CDS+NMMF+STOCKS+BOND+RETQLIQ+SAVBND+CASHLI+OTHMA+OTHFIN;
+*   have any financial assets: 1=yes, 0=no;
+    HFIN=(FIN>0);
+
+***************************************************************************;
+*   nonfinancial assets and related variables;
+    
+*   value of all vehicles (includes autos, motor homes, RVs, airplanes,
+    boats);
+      VEHIC=MAX(0,&V09603)+MAX(0,&V09608);
+*   have any vehicles: 1=yes, 0=no;
+    HVEHIC=(VEHIC>0);
+*   vehicle supplied by a business;
+*   have a business vehicle: 1=yes, 0=no;
+    BUSVEH=(&V2501=1);
+*   number of business vehicles;
+    NBUSVEH=&V2502;
+*   owned vehicles (excludes motorcycles, RVs, motor homes,
+    tractors, snow blowers etc);
+*   have an owned vehicle: 1=yes, 0=no;
+    OWN=(&V2201=1);
+*   number of owned vehicles;
+    NOWN=&V2202;
+*   value of owned vehicles;
+      VOWN=&V09603;
+
+*   leased vehicles;
+*   have leased vehicle: 1=yes, 0=no;
+    LEASE=(&V2101=1);
+*   number of leased vehicles;
+    NLEASE=&V2102;
+*   total number of vehicles (owned and leased);
+    NVEHIC=NOWN+NLEASE; 
+*   new model-year car (owned or leased); 
+
+
+
+    
+*   primary residence;
+
+*   for farmers, assume &V507 (percent of farm used for
+    farming/ranching) is maxed at 90%;
+    IF (&V507>9000) THEN &V507=9000;
+*   compute value of business part of farm net of outstanding mortgages;
+    FARMBUS=0;
+    IF (&V507>0) THEN DO;
+      FARMBUS=(&V507/10000)*(&V513+&V526-&V805-&V905);
+      &V805=&V805*((10000-&V507)/10000);
+      &V808=&V808*((10000-&V507)/10000);
+      &V813=&V813*((10000-&V507)/10000);
+      &V905=&V905*((10000-&V507)/10000);
+      &V908=&V908*((10000-&V507)/10000);
+      &V913=&V913*((10000-&V507)/10000);
+      IF (&V09342=1) THEN DO;
+        FARMBUS=FARMBUS-&V09344*(&V507/10000);
+        &V09344=&V09344*((10000-&V507)/10000);
+        &V09345=&V09345*((10000-&V507)/10000);
+      END;
+    END;
+*   value of primary residence;
+    HOUSES=SUM(0,&V604,&V614,&V623,&V716)+((10000-MAX(0,&V507))/10000)*(&V513+&V526);
+
+*******QUICK FIX FOR HOUSING VALUES FOR RANCHES;
+*IF HOUSES=0 THEN HOUSES=&V09305;
+
+*   NOTE: if R only owns a part of the property, the values reported
+    should be only Rs share;
+*   have owned principal residence: 1=yes, 0=no;
+    HHOUSES=(HOUSES^=0);
+
+*   homeownership class: 1=owns ranch/farm/mobile home/house/condo/
+    coop/etc., 2=otherwise;
+    IF (&V508 IN (1 2)|&V601 IN (1 2 3)|&V701 IN (1 3 4 5 6 8)|
+        (&V701=-7 & &V7133=1)) THEN HOUSECL=1;
+    ELSE HOUSECL=2; 
+
+*   other residential real estate: includes land contracts/notes
+    household has made, properties other than the principal
+    residence that are coded as 1-4 family residences, time shares,
+    and vacations homes;
+    ORESRE=SUM(0,&V09401,&V09405);
+*   have other residential real estate: 1=yes, 0=no;
+    HORESRE=(ORESRE>0);
+    
+*   net equity in nonresidential real estate: real estate other than
+    the principal residence, properties coded as 1-4 family
+    residences, time shares, and vacation homes net of mortgages and
+    other loans taken out for investment real estate;
+    NNRESRE =&V09414-&V09417;
+*   remove installment loans for PURPOSE=78 from NNRESRE only
+    where such property exists--otherwise, if ORESRE exists, include
+    loan as RESDBT---otherwise, treat as installment loan;
+    IF (NNRESRE^=0) THEN DO;
+      FLAG781=1;
+      NNRESRE=NNRESRE-&V09802*(&V09801=78);
+    END;
+    ELSE FLAG781=0;
+*   have nonresidential real estate assets: 1=yes, 0=no;
+    HNNRESRE=(NNRESRE ^=0); 
+    
+*   business interests;
+*   for businesses where the HH has an active interest, value is net
+    equity if business were sold today, plus loans from HH to
+    business, minus loans from business to HH not previously
+    reported, plus value of personal assets used as collateral for
+    business loans that were reported earlier;
+*   for businesses where the HH does not have an active interest,
+    market value of the interest;
+    
+/*   reset one business value where R overstated business worth;
+    IF PP1=2908 THEN DO;
+           P09510=1;
+           P09511=2;
+           P09512=40000;
+           P09513=1;
+           P09514=11;
+           P09521=25000;
+    END;*/
+    BUS=MAX(0,&V09521)+MAX(0,&V09516)-MAX(0,&V09518)*(&V09519=5)+
+      MAX(0,&V09512)*(&V09513 IN (1 6))+FARMBUS+MAX(0,&V09528);
+    ACTBUS=MAX(0,&V09521)+MAX(0,&V09516)-MAX(0,&V09518)*(&V09519=5)+
+      MAX(0,&V09512)*(&V09513 IN (1 6))+FARMBUS;/**/
+    NONACTBUS=MAX(0,&V09528);
+*   have business assets: 1=yes, 0=no;
+*   definition keys off of ownership question rather than BUS variable
+    to deal with businesses with a zero equity value; 
+    HBUS=(&V3103=1 | &V3401=1);
+    HABUS=(&V3104=1|&V3104=3 );
+    
+*   other nonfinancial assets: defined as total value of
+    miscellaneous assets minus other financial assets:
+    includes gold, silver (incl. silverware), other metals or metals
+    NA type, jewelry, gem stones (incl. antique), cars (antique or
+    classic), antiques, furniture, art objects, paintings,
+    sculpture, textile art, ceramic art, photographs, (rare) books,
+    coin collections, stamp collections, guns, misc. real estate
+    (exc. cemetery), cemetery plots, china, figurines,
+    crystal/glassware, musical instruments, livestock, horses,
+    crops, oriental rugs, furs, other collections, incl. baseball
+    cards, records, wine, oil/gas/mineral leases or investments,
+    computer, equipment/tools, association or exchange membership,
+    and other miscellaneous assets;
+    OTHNFIN=&V4022+&V4026+&V4030-OTHFIN+&V4018;
+*   have other nonfinancial assets: 1=yes, 0=no;
+    HOTHNFIN=(OTHNFIN>0);
+    
+*   total nonfinancial assets;
+    NFIN=VEHIC+HOUSES+ORESRE+NNRESRE+BUS+OTHNFIN;
+*   have any nonfinancial assets: 1=yes, 0=no;
+    HNFIN=(NFIN^=0);
+*   total nonfinancial assets excluding principal residences;
+    NHNFIN=NFIN-HOUSES;
+  
+***************************************************************************;
+*   total assets;
+    ASSET=FIN+NFIN;
+*   have any assets: 1=yes, 0=no;
+    HASSET=(ASSET^=0);
+
+***************************************************************************;
+*   debts and related variables;
+    
+*   housing debt (mortgage, home equity loans and HELOCs);
+      HELOC=MAX(0,&V09344);
+      MRTHEL=SUM(0,&V805,&V905,&V09344);
+      NH_MORT=MRTHEL-HELOC;
+
+*   Home equity equals home value less all home secured debt;
+    HOMEEQ=HOUSES-MRTHEL;
+
+*   have principal residence debt: 1=yes, 0=no;
+    HMRTHEL=(MRTHEL>0);
+    HHELOC=(HELOC>0); 
+    HNH_MORT=(NH_MORT>0);
+
+*   have principal residence debt by type: 1=yes, 0=no;
+*   have first-lien mortgage;
+    HPRIM_MORT=(&V723 IN (1 2)); 
+*   have purchase loan - first mortgage; 
+    PURCH1=(HPRIM_MORT=1 & (&V720=&V802)); 
+*   refinanced;
+    REFIN_EVER=(HPRIM_MORT=1 & (&V802>&V720));
+    
+*   first mortgage FHA or VA;
+    FGUARANTEE=(&V724=1);
+    FHA=(&V726=1);
+
+*   extracted equity from refinance;
+*   - note: X7137 only available from 1995 survey forward;
+/**** COULD CONSTRUCT BUT MUST BE A COMBINATION OF 2007 & 2009 DATA
+      HEXTRACT_EVER=(X7137 IN(2 3 4));
+*****/      
+*   have second/third mortgage;
+    HSEC_MORT=(&V905>0);
+*   have a HELOC;
+    HELOC_YN=(&V09340=1);
+
+*   have adjustable rate mortgage;
+    ADJM1=(&V820=1);
+    ADJM2=(&V920=1);
+
+*		paying of motgage on time;    
+    ONTIMEM1=&V7571;
+    ONTIMEM2=&V7570;
+
+/*   hard code adjustments to P09322 for land contracts;
+    IF PP1=   57 THEN P09322=1;
+    IF PP1=  396 THEN P09322=1;
+    IF PP1=  521 THEN P09322=1;
+    IF PP1=  841 THEN  DO;
+      P09322=3;
+      P09323=1;
+      P09324=-7;
+    END;
+    IF PP1=  915 THEN P09322=1;
+    IF PP1= 1225 THEN P09322=1;
+    IF PP1= 1227 THEN P09322=1;
+    IF PP1= 1231 THEN P09322=2;
+    IF PP1= 1383 THEN P09322=1;
+    IF PP1= 1758 THEN P09322=2;
+    IF PP1= 2555 THEN P09322=1;
+    IF PP1= 2619 THEN P09322=2;
+    IF PP1= 2622 THEN P09322=1;
+    IF PP1= 2860 THEN P09322=2;
+    IF PP1= 3190 THEN P09322=1;
+    
+* P09323 imputes from X7137 codeframe;
+    IF P09323=3 THEN P09323=2;    
+    */
+*   other lines of credit;
+    OTHLOC=MAX(0,&V09352);
+*   have balances on lines of credit other than HELOCs: 1=yes, 0=no;
+    HOTHLOC=(OTHLOC>0);
+    
+*   debt for other residential property: includes land contracts,
+    residential property other than the principal residence, misc
+    vacation, and installment debt reported for cottage/vacation home
+    code 67); 
+*   NOTE: debt for nonresidential real estate is netted out of the
+    corresponding assets; 
+    RESDBT=MAX(0,&V09408);
+*   see note above at definition of NNRESRE;
+    IF (FLAG781^=1 & ORESRE>0) THEN DO;
+      FLAG782=1;
+      RESDBT=RESDBT+&V09802*(&V09801=78);
+    END;
+    ELSE FLAG782=0;
+*   for parallel treatment, only inlcude PURPOSE=67 where
+    ORESRE>0--otherwise, treat as installment loan;
+    IF (ORESRE>0) THEN DO;
+      FLAG67=1;
+      RESDBT=RESDBT+&V09802*(&V09801=67); *assuming that this debt is majority of multiple outstanding debt;
+    END;
+    ELSE FLAG67=0;
+
+*   have other residential real estate debt: 1=yes, 0=no;
+    HRESDBT=(RESDBT>0);
+    
+*   credit card debt;
+*   NOTE: from 1992 forward, specific question addresses revolving
+    debt at stores, and this amount is treated as credit card debt here;
+    CCBAL = MAX(0,&V09206)+MAX(0,&V7575);
+*   have credit card balances: 1=yes, 0=no;
+    HCCBAL=(CCBAL>0);
+    
+*   installment loans not classified elsewhere;
+*   subdivide into vehicle loans, education loans, and other
+    installment loans;
+
+      VEH_INST=&V09605+&V09610;
+      EDN_INST=&V09702+&V09802*(&V09801=83);
+      INSTALL=&V09605+&V09610+&V09702+&V1044;
+
+*   see notes above at definitions of NNRESRE and RESDBT;
+    IF (FLAG781=0 & FLAG782=0) THEN DO;
+      INSTALL=INSTALL+&V09802*(&V09801=78);
+    END;
+    IF (FLAG67=0) THEN DO;
+      INSTALL=INSTALL+&V09802*(&V09801=67);
+    END;
+    INSTALL=INSTALL+&V09802*(&V09801 NOT IN (67 78));
+    OTH_INST=INSTALL-VEH_INST-EDN_INST;
+    HVEH_INST=(VEH_INST>0);
+    HEDN_INST=(EDN_INST>0);
+    HOTH_INST=(OTH_INST>0);
+
+*   have any installment debt: 1=yes, 0=no;
+    HINSTALL=(INSTALL>0);
+    
+*   margin loans; 
+*   except in 1995, the SCF does not ask whether the margin loan
+    was reported earlier: the instruction explicitly excludes loans
+    reported earlier;
+    OUTMARG=MAX(0,&V3932);
+    
+*   pension loans not reported earlier;
+
+      OUTPEN1=MAX(0,&V091111)*(&V091159=5);
+      OUTPEN2=MAX(0,&V091711)*(&V091759=5);
+    
+*   other debts (loans against pensions, loans against life insurance,
+    margin loans, miscellaneous);
+    ODEBT=OUTPEN1+OUTPEN2+MAX(0,&V4010)+MAX(0,&V4032)+OUTMARG;
+*   have any other debts: 1=yes, 0=no;
+    HODEBT=(ODEBT>0);
+    
+*   total debt;
+    DEBT=MRTHEL+RESDBT+OTHLOC+CCBAL+INSTALL+ODEBT;
+*   have any debts: 1=yes, 0=no;
+    HDEBT=(DEBT>0);
+
+***************************************************************************;
+*   total net worth;
+    NETWORTH=ASSET-DEBT;
+    IF (NETWORTH<=.Z) THEN PUT Y1= &PID= FIN= NFIN= DEBT= LIQ= CDS= NMMF=
+      STOCKS=  BOND=  RETQLIQ=  SAVBND=  CASHLI=  OTHMA=  OTHFIN= 
+      VEHIC= HOUSES= ORESRE= NNRESRE= BUS= OTHNFIN=
+      MRTHEL= RESDBT= OTHLOC= CCBAL= INSTALL= ODEBT=;
