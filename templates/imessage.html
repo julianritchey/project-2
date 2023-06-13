@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>iMessage Chat</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f8f8;
+        }
+
+        .chat-container {
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #fff;
+        }
+
+        .chat-message {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .user-message {
+            background-color: #d1ecf1;
+            color: #000;
+            float: right;
+        }
+
+        .bot-message {
+            background-color: #e8eaf6;
+            color: #000;
+            float: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>iMessage Chat</h1>
+
+        <div class="chat-container">
+            {% for message in messages %}
+                {% if message['sender'] == 'user' %}
+                    <div class="chat-message user-message">
+                        {{ message['content'] }}
+                    </div>
+                {% else %}
+                    <div class="chat-message bot-message">
+                        {{ message['content'] }}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        </div>
+
+        <form method="POST">
+            <div class="input-group mt-3">
+                <input type="text" class="form-control" name="user_input" placeholder="Type your message">
+                <button type="submit" class="btn btn-primary">Send</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

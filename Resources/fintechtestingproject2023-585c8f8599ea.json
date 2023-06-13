@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "fintechtestingproject2023",
+  "private_key_id": "585c8f8599eabd087e3823966d46514f5fa2621e",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCw6b5XDVCecmJ8\nTHdFaLelxvtzjUeQ2Zm0QH488cTTSNjOQdyn+sVqAONRWQ1/4/MD18FlhQVoIdv+\nSSJ9fIw2TDEHobaMubFNu/OHBfvcvKFUol9LH5I/mPmGahfYXJ7AiQM3l9Lj6P+Q\n80T7G7kkH1ZeXPHFS2Apz6IWVWik/3UVZ18a/2OnDMll4ut2BxTQIp/J+iaQMIli\nFDdDFeL8lAt8QUprjJy9ukp/SbfeBN5mSAPKFHorC5l3wWTs8804z4+bqFHnlZ0O\nJwJSgFPvr2A7xazEVyUCOXHuZPiZdXByq220ADCcGMh6yB5Tq83ZjftvrZkIhbdt\n8JRr7f4LAgMBAAECggEAOw6UbS/zMSmDCfZmvGNkJvGBYEYR1V9miX8cBRE6QMPp\nKBVhaSvz+dp5B99f+8jnB2nfVBnvP59J9p2IZ3aLwdZ2aZNIwrp8XzQ2a+UJ+lp3\nyq53fDb6VcOlzIKfGil1D1XNnqHOkyllIwiqht7u04mohdCmHtP2Mo7vD2CMkcNt\nNkl8CED2O7Nrn6ROjcGkpyvuxp1QlD7PEk4hc9NX+C/JBWSJIsm/y773zGoyx2xm\nbD/mnG/yP5vZ26pzZ4ubiSD/5comEbUCWQUeUsCZ1HEDnumU1NDIn6JRzUV6CvBW\nRUp6/zPb939O76D1TTRcG5laS+4Une0yZHzeBsOldQKBgQDbZ4Z8wF4KGxpcuPFC\nMlyAFOR02wUWQLHyiW+9nsJf3ioPU8OetCdBlTIDN6RPVnF0zfebgoXbVqsNiWAV\nJFhr7PpbIvZhU1727LFyGcWJeICVhoHnF387lt1gcBbzi0hRkh6al0bmCWNYOrC3\nYF+tpL6tFnEh1tJpD3NLQnYxjwKBgQDOa9sui7HfW4S4Dlenuw38iCupkRStz/GB\nk9FP96q1XWH8DP9dPgF1kBfy/UV0HleLH7nkbz39Kqa6E29qwXOKkhCf/kvwc7Gs\nF5/fPlRoUA4CYP/uBHILgEJcYE3+H4rvYpGPdqzQxI3S4hmmT+y5uw/RWAJL+vf/\nBNjMH7T1xQKBgGxeO+0OTuSK8oBt0Kwzl8CjkRuuulp9Zec3vvtXmQYlA31CkFKp\nBOK9wFAagYu2VJ+uw+gJlff6XM541f5bT1kvWZD+OddkiHlJ+3MyC4GVBV3VbAAq\neOuD3qAtfQiZ+QRhOcB9i8U/SdRgWLyaW2e3AX8YoJRoONEvknDPyPU9AoGALoiV\n8po/UPDarHtfO0qpzoIMBb/U/5HfCaz/BJ36d8RDcISllKmDvrLrEzYRUCn+5jgS\nufJx8P6Kc2wqM9DEcTqYUNkM2XnbVcZFnhf5A0L4xYSEbW3HH9ycGSMEsgL+WRTJ\nZ6QDNVT5+85IpftijEQlPrYuXl6HRZAcJ3gGXVkCgYAOeLAIM/oyv14IuNkJNKmh\nCsnO07JVyRY6ccNtFEBY+StP2ZEK7Za7W2hx3Oz0GBup1vlanZ0KN0fhqiQ9sqRP\nD2aAFa/rVc+ytKBJYkoCId1w6JR+YCKT9CIBCKKfYwU6eZ5ZoKqqkp7xI9xI9jd3\nh3r3G9PKbJXpXbat9FJcow==\n-----END PRIVATE KEY-----\n",
+  "client_email": "investors-dream@fintechtestingproject2023.iam.gserviceaccount.com",
+  "client_id": "118217288653495444653",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/investors-dream%40fintechtestingproject2023.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
