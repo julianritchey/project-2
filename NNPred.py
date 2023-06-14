@@ -84,7 +84,14 @@ def train_and_predict_stock(symbol, start_date, end_date):
     plt.xticks(rotation=45)
     plt.legend(["GT","Predict"])
     plt.show()
-
+    print("-----------------------------------------------------------")
+    
+    last_prediction_date = test_df.index[-1] + pd.DateOffset(days=1) 
+    last_prediction_value = preds[-1]  
+    print("Last Prediction (Date):", last_prediction_date)
+    print("Last Prediction (Value):", last_prediction_value)
+    print("-----------------------------------------------------------")
+    
     test_df = test_df.assign(Shifted=test_df["GT"].shift(1))
     test_df.iat[0, -1] = train_df.iat[-1, -1]
 
@@ -97,3 +104,6 @@ def train_and_predict_stock(symbol, start_date, end_date):
     shifted_cvrmse = shifted_rmse / test_df["GT"].mean() * 100
     print("Shifted CVRMSE:", shifted_cvrmse)
 
+    cvrmse_list = {'predicted_cvrmse':predict_cvrmse, 'shifted_cvrmse':shifted_cvrmse}
+    
+    return test_df, train_df, cvrmse_list
