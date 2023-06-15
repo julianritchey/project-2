@@ -53,8 +53,7 @@ def grid_trading_strategy(symbol, test_start_date, test_end_date, initial_cash= 
         stock_qty = initial_quantity
         stock_value += start_price * initial_quantity
         cash -= start_price * initial_quantity
-        trade_records = pd.concat([trade_records, pd.DataFrame({'Date': [test_df.index[0]], 'Action': ['Buy'], 'Quantity': [initial_quantity], 'Price': [start_price]})], ignore_index=True)
-
+        trade_records = pd.concat([trade_records, pd.DataFrame({'Date': [test_df.index[0]], 'Action': ['Buy'], 'Quantity': [initial_quantity], 'Price': [start_price], 'StockQty': [stock_qty], 'StockValue': [stock_value], 'Cash': [cash]})], ignore_index=True)
     # Backtesting
     for i in range(1, len(test_df)):
         Date = test_df.index[i]
@@ -70,7 +69,7 @@ def grid_trading_strategy(symbol, test_start_date, test_end_date, initial_cash= 
                     stock_qty += quantity
                     stock_value = trade_price * stock_qty
                     cash -= trade_price * quantity
-                    trade_records = pd.concat([trade_records, pd.DataFrame({'Date': [Date], 'Action': ['Buy'], 'Quantity': [quantity], 'Price': [trade_price]})], ignore_index=True)
+                    trade_records = pd.concat([trade_records, pd.DataFrame({'Date': [Date], 'Action': ['Buy'], 'Quantity': [quantity], 'Price': [trade_price], 'StockQty': [stock_qty], 'StockValue': [stock_value], 'Cash': [cash]})], ignore_index=True)
                     break
 
         # Check if trigger the sell condition
@@ -82,7 +81,7 @@ def grid_trading_strategy(symbol, test_start_date, test_end_date, initial_cash= 
                     stock_qty -= quantity
                     stock_value = trade_price * stock_qty
                     cash += trade_price * quantity
-                    trade_records = pd.concat([trade_records, pd.DataFrame({'Date': [Date], 'Action': ['Sell'], 'Quantity': [quantity], 'Price': [trade_price]})], ignore_index=True)
+                    trade_records = pd.concat([trade_records, pd.DataFrame({'Date': [Date], 'Action': ['Buy'], 'Quantity': [quantity], 'Price': [trade_price], 'StockQty': [stock_qty], 'StockValue': [stock_value], 'Cash': [cash]})], ignore_index=True)
                     break
 
     # Plotting
@@ -119,15 +118,16 @@ def grid_trading_strategy(symbol, test_start_date, test_end_date, initial_cash= 
     portfolio_value = round(cash + stock_value, 2)
     pnl = round(portfolio_value - initial_cash, 2)
     absolute_return = round(pnl / initial_cash * 100, 2)
-    backtest_days = (test_end_date - test_start_date).days + 1
-    annual_return = round((1 + absolute_return) ** (365 / backtest_days) - 1, 2)
+    # backtest_days = (test_end_date - test_start_date).days + 1
+    # annual_return = round((1 + absolute_return) ** (365 / backtest_days) - 1, 2)
 
     print("Backtest Result:")
     print(f"Initial Cash: {initial_cash}")
     print(f"Final Value: {portfolio_value}")
     print(f"Profits: {pnl}")
     print(f"Return Rate: {absolute_return}%")
-    print(f"Annualized Return: {annual_return}%")
+    # print(f"Annualized Return: {annual_return}%")
+    # print(f"Backtest days: {backtest_days}")
     
     return trade_records
 
