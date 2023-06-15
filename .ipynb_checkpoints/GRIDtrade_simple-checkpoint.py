@@ -3,10 +3,8 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.dates as mdates
-import datetime
-import pandas as pd
 
-def grid_trading_strategy(symbol, test_start_date, test_end_date, initial_cash= 200000, initial_quantity= 1000, quantity=100, percentage_change= 0.03, max_grid_count=20):
+def grid_trading_strategy(symbol, test_start_date, test_end_date, initial_cash= 1000000, initial_quantity= 1000, quantity=50, percentage_change= 0.03, max_grid_count=20):
     # Download stock data
     stock_data = yf.download(symbol, start=test_start_date,end=test_end_date)
     stock_data.index = pd.to_datetime(stock_data.index, unit='1d')
@@ -68,7 +66,7 @@ def grid_trading_strategy(symbol, test_start_date, test_end_date, initial_cash= 
                 prev_grid_price = grid_levels[j-1]
                 if trade_price <= grid_price and trade_price >= prev_grid_price and cash >= trade_price * quantity:
                     stock_qty += quantity
-                    stock_value = trade_price * stock_qty
+                    stock_value += trade_price * quantity
                     cash -= trade_price * quantity
                     trade_records = pd.concat([trade_records, pd.DataFrame({'Date': [Date], 'Action': ['Buy'], 'Quantity': [quantity], 'Price': [trade_price]})], ignore_index=True)
                     break
@@ -80,7 +78,7 @@ def grid_trading_strategy(symbol, test_start_date, test_end_date, initial_cash= 
                 next_grid_price = grid_levels[j+1]
                 if trade_price >= grid_price - 1 and trade_price <= next_grid_price + 1 and stock_qty >= quantity:
                     stock_qty -= quantity
-                    stock_value = trade_price * stock_qty
+                    stock_value -= trade_price * quantity
                     cash += trade_price * quantity
                     trade_records = pd.concat([trade_records, pd.DataFrame({'Date': [Date], 'Action': ['Sell'], 'Quantity': [quantity], 'Price': [trade_price]})], ignore_index=True)
                     break
@@ -111,23 +109,6 @@ def grid_trading_strategy(symbol, test_start_date, test_end_date, initial_cash= 
     plt.legend()
     plt.tight_layout()
     plt.show()
-    
-    # Calculate backtest result
-    test_start_date = pd.to_datetime(test_start_date).date()
-    test_end_date = pd.to_datetime(test_end_date).date()
-
-    portfolio_value = round(cash + stock_value, 2)
-    pnl = round(portfolio_value - initial_cash, 2)
-    absolute_return = round(pnl / initial_cash * 100, 2)
-    backtest_days = (test_end_date - test_start_date).days + 1
-    annual_return = round((1 + absolute_return) ** (365 / backtest_days) - 1, 2)
-
-    print("Backtest Result:")
-    print(f"Initial Cash: {initial_cash}")
-    print(f"Final Value: {portfolio_value}")
-    print(f"Profits: {pnl}")
-    print(f"Return Rate: {absolute_return}%")
-    print(f"Annualized Return: {annual_return}%")
     
     return trade_records
 
