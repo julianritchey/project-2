@@ -18,11 +18,9 @@ def load_model(model_name):
         model = pickle.load(file)
     return model
 
-
 def predict_risk_score(model, df):
     risk_level = model.predict(df)
     return risk_level[0]
-
 
 def list_saved_models():
     saved_models = []

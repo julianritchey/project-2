@@ -1,92 +1,146 @@
-# Import dependencies
-import json
-from os import environ as env
-from urllib.parse import quote_plus, urlencode
+import streamlit as st
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+import seaborn as sns
+import matplotlib.pyplot as plt
+from imblearn.over_sampling import RandomOverSampler
 
-from authlib.integrations.flask_client import OAuth
-from dotenv import find_dotenv, load_dotenv
+# Function to split the data into training and testing sets
+def split_data(X, y):
+    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=42)
+    return X_train, X_test, y_train, y_test
 
-from dash import Dash, Input, Output, State, dcc, html
-from flask import Flask, redirect, render_template, session, url_for
-import dash
-import dash_bootstrap_components as dbc
-from pages.nav_bar import navbar
+# Function to train and evaluate the Random Forest Classifier
+def train_rf_classifier(X_train, X_test, y_train, y_test):
+    model = RandomForestClassifier(n_estimators=100, random_state=42)
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    cm = confusion_matrix(y_test, y_pred)
+    return model, accuracy, cm
 
-ENV_FILE = find_dotenv()
-if ENV_FILE:
-    load_dotenv(ENV_FILE)
+# Function to train and evaluate the Gradient Boosting Classifier
+def train_gradient_balanced(X_train, X_test, y_train, y_test):
+    model = GradientBoostingClassifier(random_state=42)
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    cm = confusion_matrix(y_test, y_pred)
+    return model, accuracy, cm
 
-# Set style theme
-css = 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css'
+# Function to train and evaluate the Decision Tree Classifier
+def train_dtree_balanced(X_train, X_test, y_train, y_test):
+    model = DecisionTreeClassifier(random_state=42)
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    accuracy = accuracy_score(y_test, y_pred)
+    cm = confusion_matrix(y_test, y_pred)
+    return model, accuracy, cm
 
-# Create app instance
-server = Flask(__name__)
-app = Dash(
-    external_stylesheets=[dbc.themes.DARKLY],
-    meta_tags=[{
-        "name": "viewport",
-        "content": "width=device-width, initial-scale=1"
-    }],
-    prevent_initial_callbacks="initial_duplicate",
-    server=server,
-    use_pages=True,
-)
-app.config.suppress_callback_exceptions = True
-app.title = "Investor's Dream"
-server.secret_key = env.get("APP_SECRET_KEY")
+# Load the dataset
+risk_tol_model = pd.read_csv('risk_tol_model.csv')
 
-# Initialize OAuth
-oauth = OAuth(server)
-oauth.register(
-    "auth0",
-    client_id=env.get("AUTH0_CLIENT_ID"),
-    client_secret=env.get("AUTH0_CLIENT_SECRET"),
-    client_kwargs={
-        "scope": "openid profile email",
-    },
-    server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
-)
+# Prepare the data
+X = risk_tol_model[['AGE', 'KIDS', 'NET WORTH', 'INCOME', 'MARRIAGE']]
+y = risk_tol_model['RISK TOLERANCE SCORE']
 
-@server.route("/login")
-def login():
-    redirect_uri=url_for("callback", _external=True)
-    user_login = True
-    return oauth.auth0.authorize_redirect(redirect_uri)
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = split_data(X, y)
 
-@server.route("/callback")
-def callback():
-    token = oauth.auth0.authorize_access_token()
-    session["user"] = token
-    return redirect("/current-investments")
+# Oversample the data using RandomOverSampler
+oversampler = RandomOverSampler(random_state=42)
+X_train_resampled, y_train_resampled = oversampler.fit_resample(X_train, y_train)
 
-@server.route("/logout")
-def logout():
-    session.clear()
-    user_login = False
-    return redirect(
-        "https://" + env.get("AUTH0_DOMAIN")
-        + "/v2/logout?"
-        + urlencode(
-            {
-                "returnTo": url_for("/", _external=True),
-                "client_id": env.get("AUTH0_CLIENT_ID"),
-            },
-            quote_via=quote_plus,
-        )
-    )
+# Model selection widget
+model_selection = st.sidebar.selectbox('Select Model', ('Random Forest Classifier', 'Gradient Boosting Classifier', 'Decision Tree Classifier', 'Random Balanced'))
 
-@server.route("/")
-def serve_layout():
-    if session:
-        return dbc.Container([
-            navbar(True),
-            dash.page_container
-        ])
-    else:
-        return dbc.Container([
-            navbar(False),
-            html.Div(html.H1("Welcome. Please log in.", className="text-center pt-sm-5"))
-        ])
+# Model 1: Random Forest Classifier
+if model_selection == 'Random Forest Classifier':
+    st.subheader('Random Forest Classifier')
+    rf_model, rf_accuracy, rf_cm = train_rf_classifier(X_train, X_test, y_train, y_test)
 
-# Set app Layout
-app.layout = serve_layout
+    # Display accuracy
+    st.write("Accuracy:", rf_accuracy)
+
+    # Display value counts for y_train
+    st.write("y_train value counts:")
+    st.write(y_train.value_counts())
+
+    # Display classification report
+    st.write("Classification Report:")
+    y_pred_rf = rf_model.predict(X_test)
+    st.write(classification_report(y_test, y_pred_rf))
+
+    # Display confusion matrix
+    cm_rf_df = pd.DataFrame(rf_cm, columns=rf_model.classes_, index=rf_model.classes_)
+    st.write("Confusion Matrix:")
+    st.write(cm_rf_df)
+
+# Model 2: Gradient Boosting Classifier
+elif model_selection == 'Gradient Boosting Classifier':
+    st.subheader('Gradient Boosting Classifier')
+    gradient_balanced_model, gradient_balanced_accuracy, gradient_balanced_cm = train_gradient_balanced(X_train, X_test, y_train, y_test)
+
+    # Display accuracy
+    st.write("Accuracy:", gradient_balanced_accuracy)
+
+    # Display value counts for y_train
+    st.write("y_train value counts:")
+    st.write(y_train.value_counts())
+
+    # Display classification report
+    st.write("Classification Report:")
+    y_pred_gb = gradient_balanced_model.predict(X_test)
+    st.write(classification_report(y_test, y_pred_gb))
+
+    # Display confusion matrix
+    cm_gb_df = pd.DataFrame(gradient_balanced_cm, columns=gradient_balanced_model.classes_, index=gradient_balanced_model.classes_)
+    st.write("Confusion Matrix:")
+    st.write(cm_gb_df)
+
+# Model 3: Decision Tree Classifier
+elif model_selection == 'Decision Tree Classifier':
+    st.subheader('Decision Tree Classifier')
+    dtree_balanced_model, dtree_balanced_accuracy, dtree_balanced_cm = train_dtree_balanced(X_train, X_test, y_train, y_test)
+
+    # Display accuracy
+    st.write("Accuracy:", dtree_balanced_accuracy)
+
+    # Display value counts for y_train
+    st.write("y_train value counts:")
+    st.write(y_train.value_counts())
+
+    # Display classification report
+    st.write("Classification Report:")
+    y_pred_dt = dtree_balanced_model.predict(X_test)
+    st.write(classification_report(y_test, y_pred_dt))
+
+    # Display confusion matrix
+    cm_dt_df = pd.DataFrame(dtree_balanced_cm, columns=dtree_balanced_model.classes_, index=dtree_balanced_model.classes_)
+    st.write("Confusion Matrix:")
+    st.write(cm_dt_df)
+
+# Model 4: Random Balanced
+elif model_selection == 'Random Balanced':
+    st.subheader('Random Balanced')
+    random_balanced_model, random_balanced_accuracy, random_balanced_cm = train_rf_classifier(X_train_resampled, X_test, y_train_resampled, y_test)
+
+    # Display accuracy
+    st.write("Accuracy:", random_balanced_accuracy)
+
+    # Display value counts for y_train
+    st.write("y_train value counts:")
+    st.write(pd.Series(y_train_resampled).value_counts())
+
+    # Display classification report
+    st.write("Classification Report:")
+    y_pred_random_balanced = random_balanced_model.predict(X_test)
+    st.write(classification_report(y_test, y_pred_random_balanced))
+
+    # Display confusion matrix
+    cm_random_balanced_df = pd.DataFrame(random_balanced_cm, columns=random_balanced_model.classes_, index=random_balanced_model.classes_)
+    st.write("Confusion Matrix:")
+    st.write(cm_random_balanced_df)
