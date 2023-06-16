@@ -1,6 +1,6 @@
 ![Logotype](assets/logotype_id_dark_150.png)  
 ---
-Dash web-application designed for  
+A Dash web-application designed for  
 
 - managing personal investments;  
 - planning and simulating theoretical portfolios;  
@@ -125,7 +125,7 @@ Prior to utilizing the Gradient Boosting Classifier with Over-Sampler, other mac
 
 After assessing confusion matrices, classification reports and accuracy metrics for each model, it was determined the best performing model was the Gradient Boosting Classifier. Metrics from the model can be found in the table below. The model was also chosen due to its capacity to assess the relationships of the features in a more granular scope, and is less prone to overfit new data.
 
-| ---            | Precision | Recall | F1-score |
+|                | Precision | Recall | F1-score |
 |:-------------- |:---------:|:------:|:--------:|
 | Very low risk  | 0.96      | 0.89   | 0.93     |
 | Low risk       | 0.84      | 0.93   | 0.88     |
@@ -133,7 +133,7 @@ After assessing confusion matrices, classification reports and accuracy metrics 
 | High risk      | 0.97      | 0.93   | 0.95     |
 | Very high risk | 0.99      | 1.00   | 1.00     |
 | -------------- | --------- | ------ | -------- |
-| Accuracy       | --------- | ------ | 0.93     |
+| Accuracy       | -         | -      | 0.93     |
 
 ### Email bot
 ![Email bot](miscellaneous/email_bot.png)  
@@ -153,7 +153,7 @@ The sophisticated email notification system is designed to maximize customer eng
 Security is of utmost importance to users of all applications; by utilizing third-party services from trusted providers, the application can ensure it is always adhering to industry-leading protocols and standards of data security.
 
 ### Further information
-For further information, please refer to our PowerPoint presentations for [project 1](miscellaneous/Investor's Dream 1.0 FinTech Project 1.pptx) and [project 2](miscellaneous/Investor's Dream 2.0 FinTech Project 2.pptx).
+For further information, please refer to our PowerPoint presentations for [project 1](miscellaneous/Investor's%20Dream%201.0%20FinTech%20Project%201.pptx) and [project 2](miscellaneous/Investor's%20Dream%202.0%20FinTech%20Project%202.pptx).
 
 ## Running the application
 Version 2 of the application requires the use of a localhost server and all documents within this repository.
