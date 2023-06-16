@@ -2,9 +2,9 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="952.5mm"
-   height="952.5mm"
-   viewBox="0 0 952.5 952.5"
+   width="95.25mm"
+   height="95.25mm"
+   viewBox="0 0 95.25 95.25"
    version="1.1"
    id="svg5"
    inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
@@ -27,9 +27,9 @@
      inkscape:deskcolor="#505050"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.2102413"
-     inkscape:cx="285.38636"
-     inkscape:cy="1883.55"
+     inkscape:zoom="1.6819304"
+     inkscape:cx="-32.997798"
+     inkscape:cy="253.87495"
      inkscape:window-width="2560"
      inkscape:window-height="1494"
      inkscape:window-x="2869"
@@ -43,11 +43,11 @@
        id="path-effect1570"
        is_visible="true"
        lpeversion="1"
-       nodesatellites_param="F,0,0,1,0,95.25,0,1 @ F,0,0,1,0,95.25,0,1 @ F,0,0,1,0,95.25,0,1 @ F,0,0,1,0,95.25,0,1"
+       nodesatellites_param="F,0,0,1,0,9.525,0,1 @ F,0,0,1,0,9.525,0,1 @ F,0,0,1,0,9.525,0,1 @ F,0,0,1,0,9.525,0,1"
        unit="px"
        method="auto"
        mode="F"
-       radius="360"
+       radius="36"
        chamfer_steps="1"
        flexible="false"
        use_knot_distance="true"
@@ -61,25 +61,38 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(-33.978813,-52.85593)">
-    <rect
-       style="fill:#00bc8c;stroke-width:1.5875;fill-opacity:1;stroke:none;stroke-opacity:1;stroke-dasharray:none;stroke-linejoin:round"
+    <path
+       style="fill:#00bc8c;fill-opacity:1;stroke:none;stroke-width:1.5875;stroke-linejoin:round;stroke-dasharray:none;stroke-opacity:1"
        id="rect234"
-       width="952.5"
-       height="952.5"
+       width="95.25"
+       height="95.25"
        x="33.978813"
        y="52.85593"
        inkscape:path-effect="#path-effect1570"
-       d="m 129.22881,52.85593 h 762 a 95.25,95.25 45 0 1 95.25,95.25 v 762 a 95.25,95.25 135 0 1 -95.25,95.24997 h -762 A 95.25,95.25 45 0 1 33.978813,910.10593 v -762 a 95.25,95.25 135 0 1 95.249997,-95.25 z" />
+       d="m 43.503813,52.85593 h 76.199997 a 9.525,9.525 45 0 1 9.525,9.525 v 76.2 a 9.525,9.525 135 0 1 -9.525,9.525 H 43.503813 a 9.525,9.525 45 0 1 -9.525,-9.525 v -76.2 a 9.525,9.525 135 0 1 9.525,-9.525 z"
+       sodipodi:type="rect" />
     <text
        xml:space="preserve"
-       style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:381px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:vertical-lr;direction:rtl;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
-       x="-541.5083"
-       y="879.22955"
+       style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:84.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:vertical-lr;direction:rtl;fill:#ffffff;fill-opacity:1;stroke-width:0.264583"
+       x="-109.30727"
+       y="110.49715"
        id="text2404"
        transform="rotate(-90)"><tspan
          sodipodi:role="line"
          id="tspan1379"
-         x="-541.5083"
-         y="879.22955">InD</tspan></text>
+         x="-109.30727"
+         y="110.49715">C</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:84.3513px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:vertical-lr;direction:rtl;fill:#ffffff;fill-opacity:1;stroke-width:0.210879"
+       x="-88.920197"
+       y="124.74385"
+       id="text2404-0"
+       transform="matrix(0,-1.2546699,0.79702239,0,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan1379-2"
+         x="-88.920197"
+         y="124.74385"
+         style="stroke-width:0.210879">I</tspan></text>
   </g>
 </svg>
