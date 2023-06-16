@@ -1,6 +1,20 @@
+/*
 .Select-menu-outer{
     color: black;
 }
 input{
     color: black;
+}
+*/
+
+.DateInput_input, .DateInput_input_1 {
+    font-size: inherit;  /*or whatever size you would like to have*/
+    border-radius: .25rem!important;
+    background-color: #eee;
+    border: 1px solid rgb(120,120,120);
+}
+
+.DateInput, .DateInput_1 {
+    font-size: inherit;  /*or whatever size you would like to have*/
+    border-radius: .25rem!important;
 }

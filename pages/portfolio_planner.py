@@ -42,145 +42,199 @@ all_ticker_data = all_ticker_data[['Symbol', 'Name']]
 # Define page layout
 def layout():
     return html.Div(
-        children=[
-            html.H2(["Portfolio planner"], className='mx-3 my-3'),
-            html.Div(
+        [
+            dbc.Row(
                 [
-                    dbc.Row([
-                        dbc.Col(
-                            dbc.Card(
-                                dbc.CardBody([
-                                    dbc.Row([
-                                        dbc.Col([
-                                            html.H4("Portfolio data", className='card-title'),
-                                        ]),
-                                        dbc.Col(
-                                            [
-                                                dbc.Button("Load saved portfolio", id='load_portfolio_button', n_clicks=0),
-                                                dbc.Modal(
-                                                    [
-                                                        dbc.ModalHeader(
-                                                            dbc.ModalTitle("Load portfolio"),
-                                                        ),
-                                                        dbc.ModalBody(
-                                                            dcc.Dropdown(
-                                                                id='portfolio_dropdown',
-                                                            ),
-                                                        ),
-                                                        dbc.ModalFooter(
-                                                            dbc.Button("Load", id="select_portfolio_button", n_clicks=0, disabled=True),
-                                                        ),
-                                                    ],
-                                                    id="load_portfolio_modal",
-                                                    is_open=False,
-                                                ),
-                                            ],
-                                            style={'text-align':'right'},
-                                        ),
-                                    ]),   
-                                    dbc.FormFloating(
-                                        [
-                                            dbc.Input(placeholder="Portfolio name", id="portfolio_name_input"),
-                                            dbc.Label("Portfolio name"),
-                                        ],
-                                        class_name='mt-3',
-                                    ),  
-                                    dbc.FormFloating(
-                                        [
-                                            dbc.Input(placeholder="Investment period (years)", id="investment_period", type='number'),
-                                            dbc.Label("Investment period (years)"),
-                                        ],
-                                        class_name='mt-4',
-                                    ),
-                                    dbc.ButtonGroup(
-                                        [
-                                            dbc.Button("Save portfolio", id='save_portfolio_button', color='success', disabled=True, n_clicks=0),
-                                            dbc.Alert(
-                                                id="portfolio_saved_alert",
-                                                color='success',
-                                                is_open=False,
-                                                dismissable=True,
-                                                duration=5000,
-                                                style={"position": "fixed", "bottom": "0px", "text-align": "center", "width":"50%"},
-                                            ),
-                                            dbc.Button("Clear portfolio", id='clear_portfolio_button', color='danger', n_clicks=0, outline=True),
-                                            dbc.Modal(
-                                                [
-                                                    dbc.ModalHeader(
-                                                        dbc.ModalTitle("Clear portfolio")
-                                                    ),
-                                                    dbc.ModalBody("Are you sure you wish to clear the current portfolio data?"),
-                                                    dbc.ModalFooter(
-                                                        dbc.Button(
-                                                            "Confirm", id="confirm_clear_portfolio_button", color="danger", n_clicks=0, outline=True
-                                                        )
-                                                    ),
-                                                ],
-                                                id="clear_portfolio_modal",
-                                                is_open=False,
-                                            ),
-                                        ],
-                                        class_name='mt-3',
-                                        style={'width':'100%'},
-                                        vertical=True,
-                                    ),
-                                ]),
-                            ),
-                        ),
-                        dbc.Col(
-                            dbc.Card(
-                                dbc.CardBody([
-                                    dbc.Row([
-                                        dbc.Col([
-                                            html.H4("Build your portfolio", className='card-title'),
-                                        ]),
-                                    ]),
-                                    dbc.InputGroup(
-                                        [
-                                            dbc.FormFloating([
-                                                dbc.Input(placeholder="Ticker", id="ticker_input", style={'text-transform':'uppercase'}),
-                                                dbc.Label("Ticker"),
-                                            ]),
-                                            dbc.Button("Add ticker", id="ticker_button", n_clicks=0),
-                                        ],
-                                        class_name='mt-3',
-                                    ),
-                                    dbc.Collapse(
-                                        html.Div([
-                                            dbc.Label("Ticker is invalid"),
-                                        ]),
-                                        id="ticker_collapse",
-                                        is_open=False,
-                                        style={'color':'#e74c3c'},
-                                    ),
-                                    dbc.ListGroup(id="ticker_group", className='mt-3'),
-                                    dbc.ListGroup(id="weight_group", className='mt-3'),
-                                    dbc.FormText("Note: Weights should total 1"),
-                                ]),
-                            ),
-                        ),
-                    ]),
-                    dbc.Row(
+                    dbc.Col(
                         [
-                            dbc.Col(
-                                dbc.Card([
-                                    dbc.CardHeader(
-                                        dbc.Tabs(
-                                            [
-                                                dbc.Tab(label="Portfolio calculations", tab_id="portfolio_calculations_tab"),
-                                                dbc.Tab(label="Portfolio simulations", tab_id="portfolio_simulations_tab", ),
-                                            ],
-                                            id="portfolio_tabs",
-                                            active_tab="portfolio_calculations_tab",
-                                        ),
+                            html.Div(
+                                [
+                                    dbc.RadioItems(
+                                        id='dashboard-radios',
+                                        class_name='btn-group ms-0 ps-0 w-100 rounded-0',
+                                        input_class_name='btn-check ms-0',
+                                        input_style={
+                                            'margin-left':'0px',
+                                            'padding-left':'0px',
+                                        },
+                                        label_class_name='btn rounded-0 w-100 mx-0 my-0 px-3 py-2',
+                                        label_style={
+                                            'border':'none',
+                                            'text-align':'left',
+                                        },
+                                        # input_checked_class_name='active',
+                                        label_checked_style={
+                                            'background-color':'rgba(80, 80, 80, 0.2)',
+                                            'border-right':'6px solid #00bc8c',
+                                        },
+                                        options=[
+                                            {'label':'Planner','value':'planner'},
+                                        ],
+                                        style={
+                                            'before':'hidden',
+                                            'display':'block',
+                                            'flex-direction':'column',
+                                            'margin-left':'0px',
+                                            'padding-left':'0px',
+                                        },
+                                        value='planner',
                                     ),
-                                    dbc.CardBody(id="card-content"),
-                                ]),
+                                ],
+                                className="radio-group ms-0 ps-0 pt-3",
+                                style={
+                                    'margin-left':'0px',
+                                    'padding-left':'0px',
+                                },
                             ),
                         ],
-                        class_name='mt-4 mb-4',
+                        class_name='px-0',
+                        style={
+                            'border-right':'1px solid rgba(80, 80, 80, 0.2)',
+                        },
+                        width=2,
+                    ),
+                    dbc.Col(
+                        [
+                            html.H2(["Portfolio planner"], className='mx-3 my-3'),
+                            dbc.Row([
+                                dbc.Col(
+                                    dbc.Card(
+                                        dbc.CardBody([
+                                            dbc.Row([
+                                                dbc.Col([
+                                                    html.H4("Portfolio data", className='card-title'),
+                                                ]),
+                                                dbc.Col(
+                                                    [
+                                                        dbc.Button("Load saved portfolio", id='load_portfolio_button', n_clicks=0),
+                                                        dbc.Modal(
+                                                            [
+                                                                dbc.ModalHeader(
+                                                                    dbc.ModalTitle("Load portfolio"),
+                                                                ),
+                                                                dbc.ModalBody(
+                                                                    dcc.Dropdown(
+                                                                        id='portfolio_dropdown',
+                                                                    ),
+                                                                ),
+                                                                dbc.ModalFooter(
+                                                                    dbc.Button("Load", id="select_portfolio_button", n_clicks=0, disabled=True),
+                                                                ),
+                                                            ],
+                                                            id="load_portfolio_modal",
+                                                            is_open=False,
+                                                        ),
+                                                    ],
+                                                    style={'text-align':'right'},
+                                                ),
+                                            ]),   
+                                            dbc.FormFloating(
+                                                [
+                                                    dbc.Input(placeholder="Portfolio name", id="portfolio_name_input"),
+                                                    dbc.Label("Portfolio name"),
+                                                ],
+                                                class_name='mt-3',
+                                            ),  
+                                            dbc.FormFloating(
+                                                [
+                                                    dbc.Input(placeholder="Investment period (years)", id="investment_period", type='number'),
+                                                    dbc.Label("Investment period (years)"),
+                                                ],
+                                                class_name='mt-4',
+                                            ),
+                                            dbc.ButtonGroup(
+                                                [
+                                                    dbc.Button("Save portfolio", id='save_portfolio_button', color='success', disabled=True, n_clicks=0),
+                                                    dbc.Alert(
+                                                        id="portfolio_saved_alert",
+                                                        color='success',
+                                                        is_open=False,
+                                                        dismissable=True,
+                                                        duration=5000,
+                                                        style={"position": "fixed", "bottom": "0px", "text-align": "center", "width":"50%"},
+                                                    ),
+                                                    dbc.Button("Clear portfolio", id='clear_portfolio_button', color='danger', n_clicks=0, outline=True),
+                                                    dbc.Modal(
+                                                        [
+                                                            dbc.ModalHeader(
+                                                                dbc.ModalTitle("Clear portfolio")
+                                                            ),
+                                                            dbc.ModalBody("Are you sure you wish to clear the current portfolio data?"),
+                                                            dbc.ModalFooter(
+                                                                dbc.Button(
+                                                                    "Confirm", id="confirm_clear_portfolio_button", color="danger", n_clicks=0, outline=True
+                                                                )
+                                                            ),
+                                                        ],
+                                                        id="clear_portfolio_modal",
+                                                        is_open=False,
+                                                    ),
+                                                ],
+                                                class_name='mt-3',
+                                                style={'width':'100%'},
+                                                vertical=True,
+                                            ),
+                                        ]),
+                                    ),
+                                ),
+                                dbc.Col(
+                                    dbc.Card(
+                                        dbc.CardBody([
+                                            dbc.Row([
+                                                dbc.Col([
+                                                    html.H4("Build your portfolio", className='card-title'),
+                                                ]),
+                                            ]),
+                                            dbc.InputGroup(
+                                                [
+                                                    dbc.FormFloating([
+                                                        dbc.Input(placeholder="Ticker", id="ticker_input", style={'text-transform':'uppercase'}),
+                                                        dbc.Label("Ticker"),
+                                                    ]),
+                                                    dbc.Button("Add ticker", id="ticker_button", n_clicks=0),
+                                                ],
+                                                class_name='mt-3',
+                                            ),
+                                            dbc.Collapse(
+                                                html.Div([
+                                                    dbc.Label("Ticker is invalid"),
+                                                ]),
+                                                id="ticker_collapse",
+                                                is_open=False,
+                                                style={'color':'#e74c3c'},
+                                            ),
+                                            dbc.ListGroup(id="ticker_group", className='mt-3'),
+                                            dbc.ListGroup(id="weight_group", className='mt-3'),
+                                            dbc.FormText("Note: Weights should total 1"),
+                                        ]),
+                                    ),
+                                ),
+                            ]),
+                            dbc.Row(
+                                [
+                                    dbc.Col(
+                                        dbc.Card([
+                                            dbc.CardHeader(
+                                                dbc.Tabs(
+                                                    [
+                                                        dbc.Tab(label="Portfolio calculations", tab_id="portfolio_calculations_tab"),
+                                                        dbc.Tab(label="Portfolio simulations", tab_id="portfolio_simulations_tab", ),
+                                                    ],
+                                                    id="portfolio_tabs",
+                                                    active_tab="portfolio_calculations_tab",
+                                                ),
+                                            ),
+                                            dbc.CardBody(id="card-content"),
+                                        ]),
+                                    ),
+                                ],
+                                class_name='mt-4 mb-4',
+                            ),
+                        ],
+                        width=10,
                     ),
                 ],
+                class_name='vw-100',
             ),
             dcc.Store(id='ticker_list'),
             dcc.Store(id='portfolio_data'),

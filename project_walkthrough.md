@@ -4,7 +4,7 @@ Details for application usage.
 ## Getting started
 ![Home screen](miscellaneous/id_home_screen.png)  
 Users begin by navigating to the following web address:  
-[https://fintech1.richedev.com](https://fintech1.richedev.com)  
+[http://fintech1.richedev.com](http://fintech1.richedev.com)  
 The home page of the application provides users a login link in the top-right corner. Users are required to log in.
 
 ## Logging in
@@ -21,7 +21,7 @@ The *Historical investments* screen displays users' historical investment data, 
 
 ## Portfolio planner
 ![Portfolio planner screen](miscellaneous/id_portfolio_planner_screen.png)
-The *Portfolio planner* screen provides users with a tool to draft and analyze new portfolios. Drafted portfolios must contain a name, an investment period, at least one ticker, and a total ticker weight equaling 1 across all tickers before it can be saved to the application's database.
+The *Portfolio planner* screen provides users with a tool to draft and analyze new portfolios. Drafted portfolios must contain a name, an investment period, at least one ticker, and a total ticker weight equaling 1 across all tickers before it can be saved to the applications database.
   
 ![Portfolio drafted view](miscellaneous/id_portfolio_drafted_view.png)  
 ![Portfolio calculations view 01](miscellaneous/id_portfolio_calculations_view_01.png)  
@@ -50,6 +50,6 @@ By including an investment amount with a drafted portfolio, users can also run s
 ![Account management screen](miscellaneous/id_account_management_screen.png)  
 The *Account management* screen allows users to view their connected exchanges, along with information relating to the exchanges.
 
-## Logging out
+## Account management
 ![Logout view](miscellaneous/id_logout_view.png)  
 For the privacy of personal information, users are encouraged to log out when not using the application.

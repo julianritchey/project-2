@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="549.24158mm"
+   height="77.152702mm"
+   viewBox="0 0 549.24158 77.152702"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2.2 (732a01da63, 2022-12-09)"
+   sodipodi:docname="logotype_dark.svg"
+   inkscape:export-filename="logo-150.png"
+   inkscape:export-xdpi="4"
+   inkscape:export-ydpi="4"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#505050"
+     bordercolor="#ffffff"
+     borderopacity="1"
+     inkscape:showpageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="1"
+     inkscape:deskcolor="#505050"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="0.8409652"
+     inkscape:cx="920.96558"
+     inkscape:cy="231.87642"
+     inkscape:window-width="2880"
+     inkscape:window-height="1514"
+     inkscape:window-x="-11"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="fillet_chamfer"
+       id="path-effect1570"
+       is_visible="true"
+       lpeversion="1"
+       nodesatellites_param="F,0,0,1,0,9.525,0,1 @ F,0,0,1,0,9.525,0,1 @ F,0,0,1,0,9.525,0,1 @ F,0,0,1,0,9.525,0,1"
+       unit="px"
+       method="auto"
+       mode="F"
+       radius="36"
+       chamfer_steps="1"
+       flexible="false"
+       use_knot_distance="true"
+       apply_no_radius="true"
+       apply_with_radius="true"
+       only_selected="false"
+       hide_knots="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(33.246021,-61.904581)">
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:84.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:vertical-lr;direction:rtl;fill:#00bc8c;fill-opacity:1;stroke-width:0.264583"
+       x="-109.30727"
+       y="25.830502"
+       id="text2404"
+       transform="rotate(-90)"><tspan
+         sodipodi:role="line"
+         id="tspan1379"
+         x="-109.30727"
+         y="25.830502">C</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:84.6667px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:vertical-lr;direction:rtl;fill:#00bc8c;fill-opacity:1;stroke-width:0.264583"
+       x="-105.26617"
+       y="517.60785"
+       id="text2404-3"
+       transform="rotate(-90)"><tspan
+         sodipodi:role="line"
+         id="tspan1379-4"
+         x="-105.26617"
+         y="517.60785"
+         style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:42.3333px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal">Investor's Collective</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:italic;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:84.3513px;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;writing-mode:vertical-lr;direction:rtl;fill:#00bc8c;fill-opacity:1;stroke-width:0.210879"
+       x="-88.920197"
+       y="18.515133"
+       id="text2404-0"
+       transform="matrix(0,-1.2546699,0.79702239,0,0,0)"><tspan
+         sodipodi:role="line"
+         id="tspan1379-2"
+         x="-88.920197"
+         y="18.515133"
+         style="fill:#00bc8c;fill-opacity:1;stroke-width:0.210879">I</tspan></text>
+  </g>
+</svg>
