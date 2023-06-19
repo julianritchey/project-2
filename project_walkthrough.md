@@ -6,10 +6,6 @@ Details for application usage.
 The home page of the application provides users both a sign-up link (middle-left) and a login link (top-right). Users are required to sign up or log in. At this time, signing up and logging in perform the same action.
 
 ## Logging in
-<p float="left" valign="top">
-  <img src="miscellaneous/idv2_logging_in_01.png" style="{margin: 0}" width="49%" />
-  <img src="miscellaneous/idv2_logging_in_02.png" style="{margin: 0}" width="49%" />
-</p>
 
 | ![Logging in 01](miscellaneous/idv2_logging_in_01.png) | ![Login page 02](miscellaneous/idv2_logging_in_02.png) |
 | --- | --- |
@@ -90,8 +86,10 @@ The *Account* page is where users will manage all aspects of their account.
 The *Connections* subpage allows users add connections to accounts that have with various exchanges, as well as view, edit and remove existing account connections. The subpage also provides information relating to the exchanges the user has connected.
 
 #### Add connection
-![Add connection 01](miscellaneous/idv2_add_connection_01.png)  
-![Add connection 02](miscellaneous/idv2_add_connection_02.png)  
+
+| ![Add connection 01](miscellaneous/idv2_add_connection_01.png) | ![Add connection 02](miscellaneous/idv2_add_connection_02.png) |
+| --- | --- |
+
 Users can begin the process of adding a connection by clicking the *Add connection* button on the left-hand side of the *Connections* subpage. In the resulting popup, users select an exchange from the provided droplist. After selecting an exchange, a form will appear allowing users to enter their API information for the account they hold with the exchange. Upon entering their API information, users can add the connection by clicking the *Add connection* button.
 
 At this time, the application allows connections to the following exchanges:
@@ -101,8 +99,10 @@ At this time, the application allows connections to the following exchanges:
 - Questrade
 
 #### Remove connection
-![Remove connection 01](miscellaneous/idv2_remove_connection_01.png)  
-![Remove connection 02](miscellaneous/idv2_remove_connection_02.png)  
+
+| ![Remove connection 01](miscellaneous/idv2_remove_connection_01.png) | ![Remove connection 02](miscellaneous/idv2_remove_connection_02.png) |
+| --- | --- |
+
 Users can begin the process of removing a connection by clicking the edit icon in the connections table next to the connection they wish to remove. In the resulting popup, users continue the process by clicking the *Remove connection* button. After entering the required text in the resulting form, users can remove the connection by clicking the *Confirm removal* button.
 
 ### Profile
@@ -114,8 +114,10 @@ The *Profile* subpage allows users to view their connected social account, as we
 Users can change their risk tolerance by clicking the *Change* button to the right of their displayed risk tolerance.
 
 #### Robo-advisor
-![Robo-advisor 01](miscellaneous/idv2_robo-advisor_01.png)  
-![Robo-advisor 02](miscellaneous/idv2_robo-advisor_02.png)  
+
+| ![Robo-advisor 01](miscellaneous/idv2_robo-advisor_01.png) | ![Robo-advisor 02](miscellaneous/idv2_robo-advisor_02.png) |
+| --- | --- |
+
 The application provides a robo-advisor feature that can help users to determine their risk tolerance. Users can access this feature by clicking the link provided in the *Profile* subpage. In the resulting popup, users can obtain a suggested risk tolerance by answering the provided questionnaire. Upon receiving their suggested risk tolerance, users can close the popup and receive a transcript of the questionnaire by clicking the *Submit* button.
 
 ## Logging out
