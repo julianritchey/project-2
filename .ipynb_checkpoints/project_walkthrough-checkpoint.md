@@ -11,7 +11,8 @@ The home page of the application provides users both a sign-up link (middle-left
   <img src="miscellaneous/idv2_logging_in_02.png" style="{margin: 0}" width="49%" />
 </p>
 
-![Logging in 01](miscellaneous/idv2_logging_in_01.png) ![Login page 02](miscellaneous/idv2_logging_in_02.png)  
+| ![Logging in 01](miscellaneous/idv2_logging_in_01.png) | ![Login page 02](miscellaneous/idv2_logging_in_02.png) |
+
 The application utilizes a social login service provided by [Auth0](https://auth0.com/). Users are requested to log in using one of the social methods provided.
 
 ## Dashboard
