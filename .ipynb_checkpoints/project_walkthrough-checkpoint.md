@@ -58,10 +58,10 @@ The market predictor allows users to select an asset of their choosing, then run
 
 ### Strategy evaluator
 ![Strategy evaluator subpage](miscellaneous/idv2_strategy_evaluator_subpage.png)  
-![Strategy evaluation 01](miscellaneous/idv2_strategy_evaluation 01.png)  
-![Strategy evaluation 02](miscellaneous/idv2_strategy_evaluation 02.png)  
-![Strategy evaluation 03](miscellaneous/idv2_strategy_evaluation 03.png)  
-![Strategy evaluation 04](miscellaneous/idv2_strategy_evaluation 04.png)  
+![Strategy evaluation 01](miscellaneous/idv2_strategy_evaluation_01.png)  
+![Strategy evaluation 02](miscellaneous/idv2_strategy_evaluation_02.png)  
+![Strategy evaluation 03](miscellaneous/idv2_strategy_evaluation_03.png)  
+![Strategy evaluation 04](miscellaneous/idv2_strategy_evaluation_04.png)  
 The strategy evaluator allows users to select an asset and strategy of their choosing, then run a backtest on the combination to analyze the strategy's performance. The backtest will result in three evaluation criteria:
 - Signal evaluation
 - Trade evaluation
@@ -122,4 +122,4 @@ The application provides a robo-advisor feature that can help users to determine
 
 ## Logging out
 ![Logging out](miscellaneous/idv2_logging_out.png)  
-For the privacy of personal information, users are encouraged to log out when not using the application. Users can log out of the application by clicking the *Log out* link provided in the account submenu.
+For the privacy of personal information, users are encouraged to log out when not using the application. Users can log out of the application by clicking the *Logout* link provided in the account submenu.
