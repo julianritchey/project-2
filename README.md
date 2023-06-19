@@ -173,7 +173,7 @@ Investor's Dream provides investors with the tools they require to monitor exist
 - [JSON](https://www.json.org/)
 - [HTML](https://html.spec.whatwg.org/)
 - [Python](https://www.python.org/)
-  - APIs
+  - [APIs](https://www.ibm.com/topics/api)
     - [Alpaca](https://alpaca.markets/)
     - [Auth0](https://auth0.com/)
     - [Bitget](https://www.bitget.com/)
@@ -186,7 +186,7 @@ Investor's Dream provides investors with the tools they require to monitor exist
   - [Imbalanced-Learn](https://github.com/scikit-learn-contrib/imbalanced-learn)
   - [Keras](https://keras.io/)
   - [Matplotlib](https://matplotlib.org/)
-  - Monte Carlo simulator
+  - [Monte Carlo simulator](https://www.investopedia.com/terms/m/montecarlosimulation.asp)
   - [Numpy](https://numpy.org/)
   - [Pandas](https://pandas.pydata.org/)
   - [Plotly](https://plotly.com/)
@@ -196,7 +196,7 @@ Investor's Dream provides investors with the tools they require to monitor exist
   - [Tensorflow](https://www.tensorflow.org/)
   - [Websocket](https://github.com/websocket-client/websocket-client)
   - [YFinance](https://github.com/ranaroussi/yfinance)
-- SQL
+- [SQL](https://www.iso.org/standard/63555.html)
   - [PostgreSQL](https://www.postgresql.org/)
 
 ## Developers
