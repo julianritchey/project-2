@@ -156,7 +156,7 @@ Security is of utmost importance to users of all applications; by utilizing thir
 For further information, please refer to our PowerPoint presentations for [project 1](miscellaneous/Investor's%20Dream%201.0%20FinTech%20Project%201.pptx) and [project 2](miscellaneous/Investor's%20Dream%202.0%20FinTech%20Project%202.pptx).
 
 ## Running the application
-Version 2 of the application requires the use of a localhost server and all documents within this repository.
+Version 2 of the application requires the use of a localhost Flask server, all documents within this repository, the necessary API credentials, and a PostgreSQL database designed according to [our schema](miscellaneous/database_schema.svg).
 
 Version 1 of the application can still be found at the following url:
 https://fintech1.richedev.com/
@@ -169,35 +169,35 @@ Investor's Dream provides investors with the tools they require to monitor exist
 
 ## Resources and technology employed
 ![Tools used](miscellaneous/tools_used.png)  
-- CSS
-- JSON
-- HTML
-- Python
-  - APIs
-    - Alpaca
-    - Auth0
-    - Bitget
-    - KuCoin
-    - Questrade
-  - Dash
-  - Finta
-  - Flask
-  - Holoviews
-  - Imbalanced-Learn
-  - Keras
-  - Matplotlib
-  - Monte Carlo simulator
-  - Numpy
-  - Pandas
-  - Plotly
-  - Scikit-Learn
-  - SQLAlchemy
-  - TA-Lib
-  - Tensorflow
-  - Websocket
-  - YFinance
-- SQL
-  - PostgreSQL
+- [CSS](https://drafts.csswg.org/)
+- [JSON](https://www.json.org/)
+- [HTML](https://html.spec.whatwg.org/)
+- [Python](https://www.python.org/)
+  - [APIs](https://www.ibm.com/topics/api)
+    - [Alpaca](https://alpaca.markets/)
+    - [Auth0](https://auth0.com/)
+    - [Bitget](https://www.bitget.com/)
+    - [KuCoin](https://www.kucoin.com/)
+    - [Questrade](https://www.questrade.com/)
+  - [Dash](https://plotly.com/dash/)
+  - [Finta](https://github.com/peerchemist/finta)
+  - [Flask](https://flask.palletsprojects.com/)
+  - [Holoviews](https://www.holoviews.org/)
+  - [Imbalanced-Learn](https://github.com/scikit-learn-contrib/imbalanced-learn)
+  - [Keras](https://keras.io/)
+  - [Matplotlib](https://matplotlib.org/)
+  - [Monte Carlo simulator](https://www.investopedia.com/terms/m/montecarlosimulation.asp)
+  - [Numpy](https://numpy.org/)
+  - [Pandas](https://pandas.pydata.org/)
+  - [Plotly](https://plotly.com/)
+  - [Scikit-Learn](https://scikit-learn.org/)
+  - [SQLAlchemy](https://www.sqlalchemy.org/)
+  - [TA-Lib](https://github.com/ta-lib/ta-lib-python)
+  - [Tensorflow](https://www.tensorflow.org/)
+  - [Websocket](https://github.com/websocket-client/websocket-client)
+  - [YFinance](https://github.com/ranaroussi/yfinance)
+- [SQL](https://www.iso.org/standard/63555.html)
+  - [PostgreSQL](https://www.postgresql.org/)
 
 ## Developers
 - [Andrea Delgadillo Tomasevich](https://github.com/visionaryspirit)
