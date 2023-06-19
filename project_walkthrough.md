@@ -6,9 +6,9 @@ Details for application usage.
 The home page of the application provides users both a sign-up link (middle-left) and a login link (top-right). Users are required to sign up or log in. At this time, signing up and logging in perform the same action.
 
 ## Logging in
-<p float="left" style="{padding: 0, margin: 0}">
-  <img src="miscellaneous/idv2_logging_in_01.png" width="50%" />
-  <img src="miscellaneous/idv2_logging_in_02.png" width="50%" />
+<p float="left" style="{vertical-align: top}">
+  <img src="miscellaneous/idv2_logging_in_01.png" width="49%" />
+  <img src="miscellaneous/idv2_logging_in_02.png" width="49%" />
 </p>
 
 ![Logging in 01](miscellaneous/idv2_logging_in_01.png) ![Login page 02](miscellaneous/idv2_logging_in_02.png)  
